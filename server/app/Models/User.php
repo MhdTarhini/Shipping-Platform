@@ -42,4 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    // User has many Shipments
+    public function shipments()
+    {
+        return $this->hasMany(Shipment::class);
+    }
 }
