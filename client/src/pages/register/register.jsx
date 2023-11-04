@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Input from "../../components/input/input";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
