@@ -14,13 +14,13 @@ function Input({ onchange, label, name, type, value }) {
 
   return (
     <div className="flex column input ">
-      <label
+      {/* <label
         htmlFor={name}
         className={
           showLabel || value ? " label label-class" : " label none-opacity"
         }>
         {label}
-      </label>
+      </label> */}
       <input
         type={type}
         name={name}
