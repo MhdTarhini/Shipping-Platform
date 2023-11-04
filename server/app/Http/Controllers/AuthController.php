@@ -59,6 +59,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'string|min:6',
+            'address' => 'required|string|max:255',
         ]);
 
         $user = new User; 

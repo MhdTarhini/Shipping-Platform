@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./index.css";
 import Input from "../../components/input/input";
-import { register } from "../../API/queries";
 import { useNavigate } from "react-router-dom";
 
 function Login() {

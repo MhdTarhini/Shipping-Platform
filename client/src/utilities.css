@@ -73,10 +73,15 @@ button {
 }
 
 .error {
+    position: absolute;
     color: red;
     font-size: 12px;
+    margin-top: 0.2rem;
 }
 
 .pointer {
     cursor: pointer;
+}
+.non-pointer {
+    cursor: not-allowed !important;
 }

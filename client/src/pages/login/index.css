@@ -14,7 +14,6 @@
 .right-side-container {
     max-width: 500px;
     gap: 20px;
-    padding: 20px;
 }
 
 .top-login {
@@ -34,7 +33,7 @@
 }
 
 .input-field {
-    gap: 30px;
+    gap: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -100,7 +99,6 @@
         display: none;
     }
 
-    .input,
     .login-btn {
         padding: 2px 10px;
     }

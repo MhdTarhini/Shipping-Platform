@@ -14,13 +14,11 @@
     flex: 1;
     align-items: center;
     padding: 10px;
-    margin-left: 50px;
 }
 
-.right-side-container {
-    max-width: 500px;
+.right-side-container-register {
+    max-width: 100rem;
     gap: 20px;
-    padding: 20px;
 }
 
 .welcome-title {
@@ -34,7 +32,6 @@
 }
 
 .input-field {
-    gap: 30px;
     display: flex;
     flex-direction: column;
 }
@@ -61,7 +58,6 @@
 .register-btn {
     background-color: #2494EA;
     padding: 10px;
-    width: 100%;
     max-width: 500px;
     height: 50px;
     align-items: center;
@@ -78,6 +74,9 @@
 }
 
 @media (max-width: 768px) {
+    .register-page {
+            gap: 0px;
+        }
     .welcome-title {
         padding: 0px 0px 20px 10%;
         font-size: 1.5em;
@@ -95,20 +94,19 @@
         width: 100%;
     }
 
+    .right-side-container-register {
+        margin-top: 60px;
+    }
     .logo-register {
         display: flex;
         position: absolute;
         top: 0;
-        right: 0;
+        left: 0;
+            width: 373px;
     }
 
     svg {
         display: none;
-    }
-
-    .input,
-    .register-btn {
-        padding: 2px 10px;
     }
 
     .welcome-title,
@@ -119,5 +117,8 @@
 
     .input-field {
         gap: 15px;
+    }
+    input {
+        width: 336px;
     }
 }
