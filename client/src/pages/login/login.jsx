@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
 import Input from "../../components/input/input";
+import { register } from "../../API/queries";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleLoginData = (e) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  };
+
+  const handleLoginUser = () => {};
+
   return (
     <div>
       <div className="login-page flex row">
@@ -50,7 +69,12 @@ function Login() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <Input label={"mail@example.com"} type={"text"} />
+                <Input
+                  label={"mail@example.com"}
+                  type={"text"}
+                  onchange={handleLoginData}
+                  name={"email"}
+                />
               </div>
               <div className="password-input flex input">
                 <svg
@@ -67,11 +91,28 @@ function Login() {
                     stroke-linejoin="round"
                   />
                 </svg>
-                <Input label={"password"} type={"password"} />
+                <Input
+                  label={"password"}
+                  type={"password"}
+                  onchange={handleLoginData}
+                  name={"password"}
+                />
               </div>
             </div>
             <div className="forget-password">forgot password ?</div>
-            <div className="login-btn flex"> login</div>
+            <div className="login-btn flex" onClick={handleLoginUser}>
+              Login
+            </div>
+            <div className="go-register flex">
+              Don't have an account ?
+              <div
+                className="login-register-btn"
+                onClick={() => {
+                  navigate("/register");
+                }}>
+                Register
+              </div>
+            </div>
           </div>
         </div>
         <div className="left-side-login">

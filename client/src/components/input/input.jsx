@@ -1,34 +1,16 @@
 import React, { useState } from "react";
 import "./index.css";
 
-function Input({ onchange, label, name, type, value }) {
-  const [showLabel, setShowLabel] = useState(false);
-
-  const isEmpty = (e) => {
-    if (e.target.value == "") {
-      setShowLabel(false);
-    } else {
-      setShowLabel(true);
-    }
-  };
-
+function Input({ onchange, label, name, type }) {
   return (
     <div className="flex column input ">
-      {/* <label
-        htmlFor={name}
-        className={
-          showLabel || value ? " label label-class" : " label none-opacity"
-        }>
-        {label}
-      </label> */}
       <input
         type={type}
         name={name}
         id={name}
-        placeholder={value ? value : label}
+        placeholder={label}
         onChange={(e) => {
           onchange(e);
-          isEmpty(e);
         }}
       />
     </div>

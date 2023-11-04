@@ -58,13 +58,14 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'string',
+            'password' => 'string|min:6',
         ]);
 
         $user = new User; 
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->address = $request->address;
         $user->save();
 
         $token = Auth::login($user);
