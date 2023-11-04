@@ -3,6 +3,8 @@ import Input from "../../components/input/input";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../API/queries";
+import Loading from "../../components/loading/loading";
+import { validateUserData } from "../../components/validateUserData/validateUserData";
 
 function Register() {
   const [userData, setUserData] = useState({
@@ -11,7 +13,6 @@ function Register() {
     password: "",
     address: "",
   });
-
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState({
     name: "",
@@ -19,6 +20,7 @@ function Register() {
     password: "",
     address: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -35,13 +37,23 @@ function Register() {
   };
 
   const registerUserData = async () => {
-    if (validateUserData()) {
+    const { isValid, errors } = validateUserData(userData);
+    if (!isValid) {
+      setError(true);
+      setErrorMessage(errors);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
+    } else {
+      setError(false);
       try {
         const response = await register(userData);
         if (response.data.status === "success") {
+          setIsLoading(false);
           navigate("/");
         }
       } catch (error) {
+        setIsLoading(false);
         setError(true);
         setErrorMessage({
           name: error.response.data.errors?.name,
@@ -53,42 +65,6 @@ function Register() {
     }
   };
 
-  const validateUserData = () => {
-    let errors = {};
-    let isValid = true;
-
-    if (!userData.name.trim()) {
-      errors.name = "Name is required.";
-      isValid = false;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!userData.email || !emailRegex.test(userData.email)) {
-      errors.email = "Please enter a valid email address.";
-      isValid = false;
-    }
-
-    if (userData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters long.";
-      isValid = false;
-    }
-
-    if (!userData.address.trim()) {
-      errors.address = "Address is required.";
-      isValid = false;
-    }
-
-    if (!isValid) {
-      setError(true);
-      setErrorMessage(errors);
-    } else {
-      setError(false);
-    }
-
-    return isValid;
-  };
-
-  useEffect(() => {}, []);
   return (
     <>
       <div className="register-page flex row">
@@ -241,8 +217,13 @@ function Register() {
                 {error && <div className="error">{errorMessage.address}</div>}
               </div>
             </div>
-            <div className={`register-btn flex `} onClick={registerUserData}>
-              Register
+            <div
+              className={`register-btn flex `}
+              onClick={() => {
+                setIsLoading(true);
+                registerUserData();
+              }}>
+              {isLoading ? <Loading /> : "Register"}
             </div>
             <div className="go-login flex">
               already have an account ?

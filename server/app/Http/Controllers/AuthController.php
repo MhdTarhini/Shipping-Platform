@@ -40,9 +40,6 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        $userModel = User::find($user->id);
-        $userModel->number_of_visit = $userModel->number_of_visit + 1;
-        $userModel->save();
         return response()->json([
                 'status' => 'success',
                 'user' => $user,
