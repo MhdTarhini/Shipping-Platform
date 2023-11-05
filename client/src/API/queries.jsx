@@ -9,3 +9,6 @@ export const register = async (userData) => {
 
 export const login = (userData) =>
   axios.post(`${API_BASE_URL}/guest/login`, userData);
+  
+  export const deleteShipment = (shipmentData) =>
+    axios.post(`${API_BASE_URL}/shipment/delete`, shipmentData);

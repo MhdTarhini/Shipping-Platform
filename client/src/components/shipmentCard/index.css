@@ -1,0 +1,27 @@
+.contact-card {
+    border-bottom: 1px blueviolet solid;
+    padding: 5px;
+    color: var(--primary-color);
+}
+
+.card-btn {
+    border: none;
+    background-color: transparent;
+    border: 1px blueviolet solid;
+    color: blueviolet;
+    padding: 5px;
+    border-radius: 75px;
+}
+
+.card-btn:hover {
+    cursor: pointer;
+}
+
+.card-btn:active {
+    filter: brightness(70%);
+}
+
+.controls {
+    margin-top: 5px;
+    justify-content: flex-end
+}

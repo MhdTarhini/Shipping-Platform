@@ -4,7 +4,11 @@ import { selectUser } from "../../rkt/userSlice";
 
 function Home() {
   const user = useSelector(selectUser);
-  return <div>{user?.user?.name}!</div>;
+  return (
+    <>
+      <div>{user?.user?.name}!</div>;
+    </>
+  );
 }
 
 export default Home;
