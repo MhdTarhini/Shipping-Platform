@@ -1,10 +1,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
-  faLocationPin,
+  faLocationDot,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import "./index.css";
+import { useState } from "react";
+import AddCard from "../addCard/addCard";
 
 function ShipmentCard({
   id,
@@ -15,6 +17,7 @@ function ShipmentCard({
   setShipmentId,
   setShipmentDetails,
 }) {
+  const [openEdit, setOpenEdit] = useState(false);
   const handleContactDetails = () => {
     const contact_obj = {
       waybill: waybill,
@@ -24,32 +27,51 @@ function ShipmentCard({
     };
     setShipmentDetails(contact_obj);
   };
+
+  const closeEdit = () => {
+    setOpenEdit(false);
+  };
   return (
-    <div className="contact-card flex column">
-      <div className="flex gap-4">
-        <h4>Name:</h4>
-        <span>{name}</span>
-      </div>
-      <div className="flex gap-4">
-        <h4>Phone:</h4>
-        <span>{phone}</span>
-      </div>
-      <div className="flex gap-4">
-        <h4>Address:</h4>
-        <span>{address.latitude}</span>,<span>{address.longitude}</span>
-      </div>
-      <div className="controls flex gap-4">
-        <button onClick={handleContactDetails}>
-          <FontAwesomeIcon icon={faLocationPin} /> Locate
-        </button>
-        <button className="card-btn">
-          <FontAwesomeIcon icon={faEdit} /> Edit
-        </button>
-        <button onClick={() => setShipmentId(id)} className="card-btn">
-          <FontAwesomeIcon icon={faTrash} /> Delete
-        </button>
-      </div>
-    </div>
+    <>
+      {openEdit ? (
+        <AddCard
+          shipmentDetails={{ id, waybill, name, phone, address }}
+          closeEdit={closeEdit}
+          openEdit={openEdit}
+        />
+      ) : (
+        <div className="contact-card flex column">
+          <div className="flex gap-4">
+            <h4>Name:</h4>
+            <span>{name}</span>
+          </div>
+          <div className="flex gap-4">
+            <h4>Phone:</h4>
+            <span>{phone}</span>
+          </div>
+          <div className="flex gap-4">
+            <h4>Address:</h4>
+            <span>{address?.latitude}</span>,<span>{address?.longitude}</span>
+          </div>
+          <div className="controls flex gap-4">
+            <button onClick={handleContactDetails}>
+              <FontAwesomeIcon icon={faLocationDot} /> Locate
+            </button>
+            <button
+              className="card-btn"
+              onClick={() => {
+                setOpenEdit(true);
+              }}>
+              <FontAwesomeIcon icon={faEdit} />
+              Edit
+            </button>
+            <button onClick={() => setShipmentId(id)} className="card-btn">
+              <FontAwesomeIcon icon={faTrash} /> Delete
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { faAdd, faCircleXmark, faPen } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 import "./index.css";
 import Input from "../input/input";
 import { useAxios } from "../../API/queries";
 
-function AddCard({ shipments, setshipments }) {
+function AddCard({ setshipments, shipmentDetails, closeEdit, openEdit }) {
   const { addShipment } = useAxios();
 
   const [input, setInput] = useState({
@@ -41,12 +41,16 @@ function AddCard({ shipments, setshipments }) {
     setDisplay(true);
   };
   const handleClick = async (e) => {
-    console.log("1");
     if (is_displayed === true) {
-      console.log("2");
       try {
-        const response = await addShipment(input, "add");
-        setshipments((shipments) => [...shipments, response.data]);
+        const response = await addShipment(
+          input,
+          openEdit ? shipmentDetails.id : "add"
+        );
+        const newShipment = await response.data.data;
+        if (!openEdit) {
+          setshipments((shipments) => [newShipment, ...shipments]);
+        }
         setInput({
           waybill: "",
           name: "",
@@ -58,7 +62,15 @@ function AddCard({ shipments, setshipments }) {
       }
     }
     setDisplay(false);
+    closeEdit();
   };
+
+  useEffect(() => {
+    if (openEdit) setDisplay(true);
+    if (shipmentDetails) {
+      setInput(shipmentDetails);
+    }
+  });
 
   return (
     <div>
@@ -73,19 +85,36 @@ function AddCard({ shipments, setshipments }) {
             icon={faCircleXmark}
             onClick={() => {
               setDisplay(false);
+              if (openEdit) {
+                closeEdit();
+              }
             }}
           />
           <div className="flex column gap">
             <h4>waybill:</h4>
-            <input defaultValue="************" type="text" readOnly />
+            <input
+              type="text"
+              readOnly
+              value={openEdit ? shipmentDetails.waybill : "************"}
+            />
           </div>
           <div className="flex column gap">
             <h4>Name:</h4>
-            <Input type={"text"} name={"name"} onchange={handleValueChange} />
+            <Input
+              type={"text"}
+              name={"name"}
+              onchange={handleValueChange}
+              value={shipmentDetails.name}
+            />
           </div>
           <div className="flex column gap">
             <h4>Phone:</h4>
-            <Input type={"text"} name={"phone"} onchange={handleValueChange} />
+            <Input
+              type={"text"}
+              name={"phone"}
+              value={shipmentDetails.phone}
+              onchange={handleValueChange}
+            />
           </div>
           <div className="flex column gap">
             <h4>address:</h4>
@@ -95,18 +124,28 @@ function AddCard({ shipments, setshipments }) {
                 type={"text"}
                 name={"latitude"}
                 onchange={handleValueChange}
+                value={shipmentDetails.address.latitude}
               />
               longitude
               <Input
                 type={"text"}
                 name={"longitude"}
                 onchange={handleValueChange}
+                value={shipmentDetails.address.longitude}
               />
             </span>
           </div>
           <div className="controls flex d-row rh-flex-end g-4">
             <button onClick={handleClick}>
-              <FontAwesomeIcon icon={faAdd} /> Create
+              {openEdit ? (
+                <div>
+                  <FontAwesomeIcon icon={faPen} /> Update
+                </div>
+              ) : (
+                <div>
+                  <FontAwesomeIcon icon={faAdd} /> Create
+                </div>
+              )}
             </button>
           </div>
         </div>

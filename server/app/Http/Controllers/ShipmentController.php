@@ -34,7 +34,9 @@ class ShipmentController extends Controller
         $shipment->phone_number = $request->phone;
         $shipment->address = $request->address;
         $shipment->user_id = $user->id;
-        $shipment->save();
+        if ($id == 'add') {
+            $shipment->save();
+        }
 
         return response()->json([
             'status' => 'success',
@@ -65,7 +67,7 @@ class ShipmentController extends Controller
 
     public function getShipment()
     {
-        $shipments = Shipment::where("user_id", Auth::user()->id)->get();
+        $shipments = Shipment::where("user_id", Auth::user()->id)->orderBy('created_at', 'desc')->get();
 
         return response()->json([
             'status' => 'success',

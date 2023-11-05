@@ -8,7 +8,6 @@ function CardList({ shipments, setshipments, setShipmentDetails }) {
 
   const handleDelete = async (shipmentId) => {
     const response = await deleteShipment({ id: shipmentId });
-    console.log(response);
     if (response.data.status === "success") {
       const updatedShipmentsList = shipments.filter(
         (shipment) => shipment.id !== shipmentId
@@ -16,12 +15,9 @@ function CardList({ shipments, setshipments, setShipmentDetails }) {
       setshipments(updatedShipmentsList);
     }
   };
-  console.log(shipmentId);
-
   useEffect(() => {
     if (shipmentId) handleDelete(shipmentId);
   }, [shipmentId]);
-
   return (
     <div>
       {shipments.map((shipment) => (

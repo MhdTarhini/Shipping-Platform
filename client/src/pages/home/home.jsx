@@ -5,11 +5,12 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { Marker } from "react-leaflet";
 import { Popup } from "react-leaflet";
 import AddCard from "../../components/addCard/addCard";
-import shipmentCard from "../../components/shipmentCard/shipmentCard";
 import "./index.css";
 import { useAxios } from "../../API/queries";
 import "leaflet/dist/leaflet.css";
 import CardList from "../../components/cardList/cardList";
+import ShipmentCard from "../../components/shipmentCard/shipmentCard";
+import L from "leaflet";
 
 function ChangeLocation({ lat, long }) {
   const map = useMap();
@@ -19,7 +20,6 @@ function ChangeLocation({ lat, long }) {
 
 function Home() {
   const { getShipments } = useAxios();
-  const user = useSelector(selectUser);
   const [shipmentDetails, setShipmentDetails] = useState({
     waybill: "",
     name: "",
@@ -30,13 +30,17 @@ function Home() {
 
   const fetchshipments = async () => {
     const response = await getShipments();
-    console.log(response);
     setshipments([...response.data.data]);
   };
 
   useEffect(() => {
     fetchshipments();
   }, []);
+
+  var markerIcon = new L.icon({
+    iconUrl: "location-point.svg",
+    iconSize: [38, 38],
+  });
 
   return (
     <div>
@@ -50,29 +54,32 @@ function Home() {
           />
         </div>
         <div className="map-container">
-          <MapContainer center={[51.5, -0.9]} zoom={13} scrollWheelZoom={false}>
+          <MapContainer
+            center={[34.8669725, 37.489227]}
+            zoom={13}
+            scrollWheelZoom={false}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {shipmentDetails.address.latitude &&
-              shipmentDetails.address.longtitude && (
+              shipmentDetails.address.longitude && (
                 <>
                   <ChangeLocation
                     lat={parseFloat(shipmentDetails.address.latitude)}
-                    long={parseFloat(shipmentDetails.address.longtitude)}
+                    long={parseFloat(shipmentDetails.address.longitude)}
                   />
                   <Marker
                     position={[
                       parseFloat(shipmentDetails.address.latitude),
-                      parseFloat(shipmentDetails.address.longtitude),
-                    ]}>
+                      parseFloat(shipmentDetails.address.longitude),
+                    ]}
+                    icon={markerIcon}>
                     <Popup>
-                      <shipmentCard
-                        waybill={shipmentDetails.country}
+                      <ShipmentCard
+                        waybill={shipmentDetails.waybill}
                         name={shipmentDetails.name}
                         phone={shipmentDetails.phone}
-                        address={shipmentDetails.address}
                       />
                     </Popup>
                   </Marker>
