@@ -18,7 +18,7 @@ function ChangeLocation({ lat, long }) {
   return null;
 }
 
-function Home() {
+function ViewMap() {
   const { getShipments } = useAxios();
   const [shipmentDetails, setShipmentDetails] = useState({
     waybill: "",
@@ -46,7 +46,7 @@ function Home() {
     <div>
       <div className="main flex d-row">
         <div className="aside flex column">
-          <AddCard setshipments={setshipments} />
+          {/* <AddCard setshipments={setshipments} /> */}
           <CardList
             shipments={shipments}
             setshipments={setshipments}
@@ -76,11 +76,9 @@ function Home() {
                     ]}
                     icon={markerIcon}>
                     <Popup>
-                      <ShipmentCard
-                        waybill={shipmentDetails.waybill}
-                        name={shipmentDetails.name}
-                        phone={shipmentDetails.phone}
-                      />
+                      <p>waybill: {shipmentDetails.waybill}</p>
+                      <p>name : {shipmentDetails.name}</p>
+                      <p>phone : {shipmentDetails.phone}</p>
                     </Popup>
                   </Marker>
                 </>
@@ -92,4 +90,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default ViewMap;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ShipmentCard from "../shipmentCard/shipmentCard";
 import { useAxios } from "../../API/queries";
+import "./index.css";
 
 function CardList({ shipments, setshipments, setShipmentDetails }) {
   const { deleteShipment } = useAxios();
@@ -19,7 +20,7 @@ function CardList({ shipments, setshipments, setShipmentDetails }) {
     if (shipmentId) handleDelete(shipmentId);
   }, [shipmentId]);
   return (
-    <div>
+    <div className="card-list flex column">
       {shipments.map((shipment) => (
         <ShipmentCard
           shipment={shipment}

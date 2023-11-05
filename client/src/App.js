@@ -7,6 +7,8 @@ import HomeLayout from "./homeLayout/homeLayout";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./rkt/presistConfig";
+import ViewMap from "./pages/viewMap/viewMap";
+import Dashboard from "./pages/dashboard/dashboard";
 
 function App() {
   return (
@@ -16,7 +18,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/home" element={<HomeLayout />} />
+            <Route path="/v1" element={<HomeLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="view" element={<ViewMap />} />
+            </Route>
           </Routes>
         </BrowserRouter>
       </PersistGate>

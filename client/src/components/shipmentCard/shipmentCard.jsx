@@ -40,7 +40,12 @@ function ShipmentCard({
           openEdit={openEdit}
         />
       ) : (
-        <div className="contact-card flex column">
+        <div
+          className="shipment-card flex column"
+          onClick={handleContactDetails}>
+          <div className="flex gap-4">
+            <span># {waybill}</span>
+          </div>
           <div className="flex gap-4">
             <h4>Name:</h4>
             <span>{name}</span>
@@ -53,7 +58,7 @@ function ShipmentCard({
             <h4>Address:</h4>
             <span>{address?.latitude}</span>,<span>{address?.longitude}</span>
           </div>
-          <div className="controls flex gap-4">
+          {/* <div className="controls flex gap-4">
             <button onClick={handleContactDetails}>
               <FontAwesomeIcon icon={faLocationDot} /> Locate
             </button>
@@ -68,7 +73,7 @@ function ShipmentCard({
             <button onClick={() => setShipmentId(id)} className="card-btn">
               <FontAwesomeIcon icon={faTrash} /> Delete
             </button>
-          </div>
+          </div> */}
         </div>
       )}
     </>

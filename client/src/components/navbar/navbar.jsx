@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./index.css";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../rkt/userSlice";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
-const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Completed", href: "#", current: false },
-];
+import { Link } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Navbar() {
+  const [toggle, setToggle] = useState(false);
+  const navigation = [
+    { name: "Dashboard", href: "/v1", current: toggle },
+    { name: "View Map", href: "/v1/view", current: !toggle },
+  ];
   const user = useSelector(selectUser);
   return (
     <Disclosure as="nav" className="navbar-color">
@@ -40,24 +41,27 @@ function Navbar() {
                   <img
                     className="h-8 w-auto"
                     src="navbar-logo.png"
-                    alt="Your Company"
+                    alt="GoShip"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
                         className={classNames(
                           item.current
                             ? "navbar-btn-clicked text-white"
                             : "text-gray-300 hover:navbar-btn-clicked hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
-                        aria-current={item.current ? "page" : undefined}>
+                        aria-current={item.current ? "page" : undefined}
+                        onClick={() => {
+                          setToggle(!toggle);
+                        }}>
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>

@@ -1,0 +1,12 @@
+.card-list {
+    padding: 20px;
+    gap: 10px;
+    overflow-y: auto;
+    height: 90vh;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.card-list::-webkit-scrollbar {
+    display: none;
+}

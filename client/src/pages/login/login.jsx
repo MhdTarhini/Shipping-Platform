@@ -48,7 +48,7 @@ function Login() {
         const response = await login(userData);
         dispatch(setUser(response.data));
         if (response.data.status === "success") {
-          navigate("/home");
+          navigate("/v1");
         }
       } catch (error) {
         setError(true);

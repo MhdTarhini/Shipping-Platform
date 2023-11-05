@@ -6,7 +6,10 @@
 
 .aside {
     overflow-y: scroll;
-    width: 35vw;
+    overflow: hidden;
+        width: 25vw;
+        position: absolute;
+        z-index: 999999;
 }
 
 
@@ -31,11 +34,11 @@
 }
 
 .map-container {
-    width: 75vw;
+    width: 100vw;
     height: calc(100vh - 4rem);
 }
 
 .leaflet-container {
-    width: 75vw;
+    width: 100vw;
     height: calc(100vh - 4rem);
 }
