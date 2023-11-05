@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
-import "./styles.css";
-import axios from "axios";
 import ShipmentCard from "../shipmentCard/shipmentCard";
 import { deleteShipment } from "../../API/queries";
 
 function ContactList({ shipment, setShipment, setShipmentDetails }) {
-  const [shipment_id, setShipmentID] = useState(0);
-  const handleDelete = async (shipment_id) => {
-    const response = await deleteShipment(shipment_id);
+  const [shipmentId, setshipmentId] = useState(0);
+  const handleDelete = async (shipmentId) => {
+    const response = await deleteShipment(shipmentId);
     if (response.data.status) {
       const updatedShipmentsList = shipment.filter(
-        (shipment) => shipment.id !== shipment_id
+        (shipment) => shipment.id !== shipmentId
       );
       setShipment(updatedShipmentsList);
     }
   };
 
   useEffect(() => {
-    if (shipment_id) handleDelete(shipment_id);
-  }, [shipment_id]);
+    if (shipmentId) handleDelete(shipmentId);
+  }, [shipmentId]);
 
   return (
     <div>
@@ -31,7 +29,7 @@ function ContactList({ shipment, setShipment, setShipmentDetails }) {
           phone={shipment.phone_number}
           address={shipment.address}
           waybill={shipment.waybill}
-          setShipmentID={setShipmentID}
+          setshipmentId={setshipmentId}
           setShipmentDetails={setShipmentDetails}
         />
       ))}

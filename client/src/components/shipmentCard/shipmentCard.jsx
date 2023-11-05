@@ -1,4 +1,3 @@
-import "./styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
@@ -23,7 +22,6 @@ function ShipmentCard({
       phone: phone,
       address: address,
     };
-
     setShipmentDetails(contact_obj);
   };
   return (

@@ -12,3 +12,6 @@ export const login = (userData) =>
   
   export const deleteShipment = (shipmentData) =>
     axios.post(`${API_BASE_URL}/shipment/delete`, shipmentData);
+
+  export const getshipments = (shipmentData) =>
+    axios.get(`${API_BASE_URL}/shipment/get_shipments`, shipmentData);

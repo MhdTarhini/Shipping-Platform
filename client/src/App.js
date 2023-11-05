@@ -5,7 +5,6 @@ import Login from "./pages/login/login";
 import Register from "./pages/register/register";
 import HomeLayout from "./homeLayout/homeLayout";
 import { Provider } from "react-redux";
-// import { store } from "./rkt/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./rkt/presistConfig";
 

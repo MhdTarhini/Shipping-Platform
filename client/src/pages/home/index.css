@@ -1,0 +1,51 @@
+header {
+    height: 5rem;
+    background-color: blueviolet;
+    color: var(--secondary-color);
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.main {
+    height: calc(100vh - 5rem);
+    width: 100vw;
+
+}
+
+.aside {
+    overflow-y: scroll;
+    width: 35vw;
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    width: 1px;
+    background-color: rgba(130, 129, 130, 0.795);
+}
+
+::-webkit-scrollbar-thumb {
+    height: 1px;
+    background: rgba(130, 129, 130, 0.795);
+    border-radius: 75px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    width: 1px;
+    background: rgba(130, 129, 130, 0.795);
+}
+
+.map-container {
+    width: 75vw;
+    height: calc(100vh - 4rem);
+}
+
+.leaflet-container {
+    width: 75vw;
+    height: calc(100vh - 4rem);
+}
