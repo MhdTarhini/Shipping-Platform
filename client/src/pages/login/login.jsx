@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../API/queries";
 import Loading from "../../components/loading/loading";
 import { validateUserData } from "../../components/validateUserData/validateUserData";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser, selectUser } from "../../rkt/userSlice";
 
 function Login() {
   const [userData, setUserData] = useState({
@@ -19,6 +21,8 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const handleLoginData = (e) => {
     const { name, value } = e.target;
@@ -31,7 +35,6 @@ function Login() {
   const handleLoginUser = async () => {
     const { isValid, errors } = validateUserData(userData);
     if (!isValid) {
-      console.log("here");
       setError(true);
       setErrorMessage(errors);
       setTimeout(() => {
@@ -39,9 +42,9 @@ function Login() {
       }, 3000);
     } else {
       setError(false);
-      console.log("response");
       try {
         const response = await login(userData);
+        dispatch(setUser(response.data));
         if (response.data.status === "success") {
           navigate("/home");
         }

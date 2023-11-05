@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser } from "../../rkt/userSlice";
 
 function Home() {
-  return <div>Home</div>;
+  const user = useSelector(selectUser);
+  return <div>{user?.user?.name}!</div>;
 }
 
 export default Home;

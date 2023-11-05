@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Collection;
 
 class AuthController extends Controller
 {
@@ -40,9 +41,10 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
+        $user_data = $user->setHidden(["id","password","updated_at","created_at"]);
         return response()->json([
                 'status' => 'success',
-                'user' => $user,
+                'user' => $user_data,
                 'authorisation' => [
                     'token' => $token,
                     'type' => 'bearer',
