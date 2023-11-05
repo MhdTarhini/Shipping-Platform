@@ -1,28 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAdd,
-  faCircleArrowDown,
-  faCircleXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import axios from "axios";
 import "./index.css";
 import Input from "../input/input";
-import { getshipments } from "../../API/queries";
+import { useAxios } from "../../API/queries";
 
 function AddCard({ shipments, setshipments }) {
+  const { addShipment } = useAxios();
+
   const [input, setInput] = useState({
     waybill: "",
     name: "",
     phone: "",
     address: {
       latitude: "",
-      longtitude: "",
+      longitude: "",
     },
   });
 
   const handleValueChange = (e) => {
-    if (e.target.name === "latitude" || e.target.name === "longtitude") {
+    if (e.target.name === "latitude" || e.target.name === "longitude") {
       setInput({
         ...input,
         address: {
@@ -44,9 +41,11 @@ function AddCard({ shipments, setshipments }) {
     setDisplay(true);
   };
   const handleClick = async (e) => {
+    console.log("1");
     if (is_displayed === true) {
+      console.log("2");
       try {
-        const response = await getshipments(input);
+        const response = await addShipment(input, "add");
         setshipments((shipments) => [...shipments, response.data]);
         setInput({
           waybill: "",
@@ -97,10 +96,10 @@ function AddCard({ shipments, setshipments }) {
                 name={"latitude"}
                 onchange={handleValueChange}
               />
-              Longtitude
+              longitude
               <Input
                 type={"text"}
-                name={"longtitude"}
+                name={"longitude"}
                 onchange={handleValueChange}
               />
             </span>

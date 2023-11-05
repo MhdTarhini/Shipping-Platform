@@ -1,20 +1,46 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { selectUser } from "../rkt/userSlice";
 
 const API_BASE_URL = "http://127.0.0.1:8000/api";
 
-export const register = async (userData) => {
-  const response = await axios.post(`${API_BASE_URL}/guest/register`, userData);
-  return response;
+export const useAxios = () => {
+  const user = useSelector(selectUser);
+  const token = user.authorisation.token;
+
+  const authAxios = axios.create({
+    baseURL: API_BASE_URL,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const register = async (userData) => {
+    const response = await authAxios.post(`/guest/register`, userData);
+    return response;
+  };
+
+  const login = async (userData) => {
+    const response = await authAxios.post(`/guest/login`, userData);
+    return response;
+  };
+
+  const deleteShipment = async (shipmentData) => {
+    const response = await authAxios.post(`/shipment/delete`, shipmentData);
+    return response;
+  };
+
+  const getShipments = async () => {
+    const response = await authAxios.get(`/shipment/get`);
+    return response;
+  };
+
+  const addShipment = async (shipmentData, param) => {
+    const response = await authAxios.post(
+      `/shipment/add_edit/${param}`,
+      shipmentData
+    );
+    return response;
+  };
+
+  return { register, login, deleteShipment, getShipments, addShipment };
 };
 
-export const login = (userData) =>
-  axios.post(`${API_BASE_URL}/guest/login`, userData);
-  
-export const deleteShipment = (shipmentData) =>
-  axios.post(`${API_BASE_URL}/shipment/delete`, shipmentData);
-
-export const getshipments = (shipmentData) =>
-  axios.get(`${API_BASE_URL}/shipment/get`, shipmentData);
-
-export const addshipment = (shipmentData) =>
-  axios.post(`${API_BASE_URL}/shipment/add_edit`, shipmentData);

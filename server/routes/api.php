@@ -15,11 +15,12 @@ Route::group(["middleware" => "auth:api"], function(){
         Route::post("logout", [AuthController::class, "logout"]);
         Route::post("refresh", [AuthController::class, "refresh"]);
         Route::get("profile", [AuthController::class, "profile"]);
+
+        Route::group(["prefix" => "shipment"], function(){
+            Route::post("add_edit/{id?}", [ShipmentController::class, "addEditShipment"]);
+            Route::get("get", [ShipmentController::class, "getShipment"]);
+            Route::post("delete", [ShipmentController::class, "deleteShipment"]);
+        });
 });
 
-Route::group(["prefix" => "shipment"], function(){
-    Route::post("add_edit/{id?}", [ShipmentController::class, "addEditShipment"]);
-    Route::get("get", [ShipmentController::class, "getShipment"]);
-    Route::post("delete", [ShipmentController::class, "deleteShipment"]);
-});
 

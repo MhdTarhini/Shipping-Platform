@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import "./index.css";
 import Input from "../../components/input/input";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../API/queries";
+import { useAxios } from "../../API/queries";
 import Loading from "../../components/loading/loading";
 import { validateUserData } from "../../components/validateUserData/validateUserData";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser, selectUser } from "../../rkt/userSlice";
 
 function Login() {
+  const { login } = useAxios();
+
   const [userData, setUserData] = useState({
     email: "",
     password: "",

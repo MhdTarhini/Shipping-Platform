@@ -12,7 +12,7 @@ function ShipmentCard({
   name,
   phone,
   address,
-  setShipmentID,
+  setShipmentId,
   setShipmentDetails,
 }) {
   const handleContactDetails = () => {
@@ -36,7 +36,7 @@ function ShipmentCard({
       </div>
       <div className="flex gap-4">
         <h4>Address:</h4>
-        <span>{address}</span>
+        <span>{address.latitude}</span>,<span>{address.longitude}</span>
       </div>
       <div className="controls flex gap-4">
         <button onClick={handleContactDetails}>
@@ -45,7 +45,7 @@ function ShipmentCard({
         <button className="card-btn">
           <FontAwesomeIcon icon={faEdit} /> Edit
         </button>
-        <button onClick={() => setShipmentID(id)} className="card-btn">
+        <button onClick={() => setShipmentId(id)} className="card-btn">
           <FontAwesomeIcon icon={faTrash} /> Delete
         </button>
       </div>

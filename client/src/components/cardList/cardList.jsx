@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 import ShipmentCard from "../shipmentCard/shipmentCard";
-import { deleteShipment } from "../../API/queries";
+import { useAxios } from "../../API/queries";
 
-function ContactList({ shipment, setShipment, setShipmentDetails }) {
+function CardList({ shipments, setshipments, setShipmentDetails }) {
+  const { deleteShipment } = useAxios();
   const [shipmentId, setshipmentId] = useState(0);
+
   const handleDelete = async (shipmentId) => {
-    const response = await deleteShipment(shipmentId);
-    if (response.data.status) {
-      const updatedShipmentsList = shipment.filter(
+    const response = await deleteShipment({ id: shipmentId });
+    console.log(response);
+    if (response.data.status === "success") {
+      const updatedShipmentsList = shipments.filter(
         (shipment) => shipment.id !== shipmentId
       );
-      setShipment(updatedShipmentsList);
+      setshipments(updatedShipmentsList);
     }
   };
+  console.log(shipmentId);
 
   useEffect(() => {
     if (shipmentId) handleDelete(shipmentId);
@@ -20,7 +24,7 @@ function ContactList({ shipment, setShipment, setShipmentDetails }) {
 
   return (
     <div>
-      {shipment.map((shipment) => (
+      {shipments.map((shipment) => (
         <ShipmentCard
           shipment={shipment}
           key={shipment.id}
@@ -29,7 +33,7 @@ function ContactList({ shipment, setShipment, setShipmentDetails }) {
           phone={shipment.phone_number}
           address={shipment.address}
           waybill={shipment.waybill}
-          setshipmentId={setshipmentId}
+          setShipmentId={setshipmentId}
           setShipmentDetails={setShipmentDetails}
         />
       ))}
@@ -37,4 +41,4 @@ function ContactList({ shipment, setShipment, setShipmentDetails }) {
   );
 }
 
-export default ContactList;
+export default CardList;

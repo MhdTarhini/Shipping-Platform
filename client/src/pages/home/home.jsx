@@ -5,11 +5,11 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { Marker } from "react-leaflet";
 import { Popup } from "react-leaflet";
 import AddCard from "../../components/addCard/addCard";
-import cardList from "../../components/cardList/cardList";
 import shipmentCard from "../../components/shipmentCard/shipmentCard";
 import "./index.css";
-import { getshipments } from "../../API/queries";
+import { useAxios } from "../../API/queries";
 import "leaflet/dist/leaflet.css";
+import CardList from "../../components/cardList/cardList";
 
 function ChangeLocation({ lat, long }) {
   const map = useMap();
@@ -18,6 +18,7 @@ function ChangeLocation({ lat, long }) {
 }
 
 function Home() {
+  const { getShipments } = useAxios();
   const user = useSelector(selectUser);
   const [shipmentDetails, setShipmentDetails] = useState({
     waybill: "",
@@ -28,8 +29,9 @@ function Home() {
   const [shipments, setshipments] = useState([]);
 
   const fetchshipments = async () => {
-    // const response = await getshipments();
-    // setshipments([...response.data.shipments]);
+    const response = await getShipments();
+    console.log(response);
+    setshipments([...response.data.data]);
   };
 
   useEffect(() => {
@@ -40,8 +42,8 @@ function Home() {
     <div>
       <div className="main flex d-row">
         <div className="aside flex column">
-          <AddCard />
-          <cardList
+          <AddCard setshipments={setshipments} />
+          <CardList
             shipments={shipments}
             setshipments={setshipments}
             setShipmentDetails={setShipmentDetails}

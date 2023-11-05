@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Input from "../../components/input/input";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-import { register } from "../../API/queries";
+import { useAxios } from "../../API/queries";
 import Loading from "../../components/loading/loading";
 import { validateUserData } from "../../components/validateUserData/validateUserData";
 
 function Register() {
+  const { register } = useAxios();
+
   const [userData, setUserData] = useState({
     name: "",
     email: "",
