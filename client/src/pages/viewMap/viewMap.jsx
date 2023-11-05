@@ -44,7 +44,7 @@ function ViewMap() {
 
   return (
     <div>
-      <div className="main flex d-row">
+      <div className="main flex">
         <div className="aside flex column">
           {/* <AddCard setshipments={setshipments} /> */}
           <CardList

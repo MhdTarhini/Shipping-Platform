@@ -42,3 +42,14 @@
     width: 100vw;
     height: calc(100vh - 4rem);
 }
+@media (max-width: 480px) {
+
+    .aside {
+        overflow-x: scroll;
+        overflow: hidden;
+        width: 100vw;
+        position: absolute;
+        z-index: 999999;
+        bottom: 0;
+    }
+}
