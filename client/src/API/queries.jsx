@@ -10,11 +10,11 @@ export const register = async (userData) => {
 export const login = (userData) =>
   axios.post(`${API_BASE_URL}/guest/login`, userData);
   
-  export const deleteShipment = (shipmentData) =>
-    axios.post(`${API_BASE_URL}/shipment/delete`, shipmentData);
+export const deleteShipment = (shipmentData) =>
+  axios.post(`${API_BASE_URL}/shipment/delete`, shipmentData);
 
-  export const getshipments = (shipmentData) =>
-    axios.get(`${API_BASE_URL}/shipment/get`, shipmentData);
+export const getshipments = (shipmentData) =>
+  axios.get(`${API_BASE_URL}/shipment/get`, shipmentData);
 
-  export const addshipment = (shipmentData) =>
-    axios.post(`${API_BASE_URL}/shipment/add`, shipmentData);
+export const addshipment = (shipmentData) =>
+  axios.post(`${API_BASE_URL}/shipment/add_edit`, shipmentData);
