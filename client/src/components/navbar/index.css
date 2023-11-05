@@ -1,9 +1,6 @@
-.navabr {
-    justify-content: space-between;
+.navbar-color {
     background-color: #2494EA;
 }
-
-.logo {
-    width: 50px;
-    height: 50px;
+.navbar-btn-clicked {
+    background-color: #05538e;
 }
