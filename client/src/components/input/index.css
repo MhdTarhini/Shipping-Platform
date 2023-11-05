@@ -4,11 +4,11 @@ input {
             font-size: 16px;
             flex-shrink: 0;
             border: none;
-            background-color: rgb(179, 179, 179);
+            background-color: rgb(240, 240, 240);
         width: 340px;
 }
 
-.input::placeholder {
+.input-component::placeholder {
     color: white;
 }
 

@@ -3,7 +3,7 @@ import "./index.css";
 
 function Input({ onchange, label, name, type }) {
   return (
-    <div className="flex column input ">
+    <div className="flex column input-component ">
       <input
         type={type}
         name={name}

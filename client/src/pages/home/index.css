@@ -1,13 +1,3 @@
-header {
-    height: 5rem;
-    background-color: blueviolet;
-    color: var(--secondary-color);
-    font-weight: bold;
-    align-items: center;
-    justify-content: center;
-
-}
-
 .main {
     height: calc(100vh - 5rem);
     width: 100vw;
