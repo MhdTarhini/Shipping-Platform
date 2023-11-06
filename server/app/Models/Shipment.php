@@ -19,12 +19,12 @@ class Shipment extends Model
         return $this->belongsTo(User::class);
     }
     function scopeIsInProces($query,$id){
-        return $query->where('user_id', $id)->where("status",1);
+        return $query->where('user_id', $id)->where("status_id",1);
     }
     function scopeIsCompleted($query,$id){
-        return $query->where('user_id', $id)->where("status",2);
+        return $query->where('user_id', $id)->where("status_id",2);
     }
     function scopeIsCanceled($query,$id){
-        return $query->where('user_id', $id)->where("status",3);
+        return $query->where('user_id', $id)->where("status_id",3);
     }
 }

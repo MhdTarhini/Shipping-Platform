@@ -41,6 +41,12 @@ export const useAxios = () => {
     return response;
   };
 
-  return { register, login, deleteShipmentAPI, getShipments, addShipmentAPI };
+  return {
+    register,
+    login,
+    deleteShipmentAPI,
+    getShipments,
+    addShipmentAPI,
+  };
 };
 

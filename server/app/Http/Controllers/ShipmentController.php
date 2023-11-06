@@ -87,15 +87,28 @@ class ShipmentController extends Controller
         }
 
         $userId = $user->id;
+
         $shipments = Shipment::where("user_id", $userId)->orderBy('created_at', 'desc')->get();
+
+        $shipments_number = $shipments->count();
+
+        $completed_shipment=Shipment::isCompleted($userId)->count();
+
+        $inProcess_shipment=Shipment::isInProces($userId)->count();
+        
+        $canceled_shipment=Shipment::isCanceled($userId)->count();
 
         return response()->json([
             'status' => 'success',
             'data'=>$shipments,
+            'shipments_number'=>$shipments_number,
+            'completed_shipment'=>$completed_shipment,
+            'inProcess_shipment'=>$inProcess_shipment,
+            'canceled_shipment'=>$canceled_shipment,
         ]);
     }
 
-    public function userShipmentsDetails(){
+    public function getShipmentsDetails(){
         $user=Auth::user();
 
         if (!$user) {

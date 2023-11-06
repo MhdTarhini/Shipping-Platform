@@ -9,14 +9,26 @@ import CardForm from "../../components/cardForm/cardForm";
 function Dashboard() {
   const { getShipments } = useAxios();
   const [openModal, setOpenModal] = useState(false);
+  const [shipmentsDetails, setShipmentsDetails] = useState({
+    shipmentsNumber: "",
+    completedShipments: "",
+    completedShipments: "",
+    canceled_shipments: "",
+  });
 
   const dispatch = useDispatch();
 
   const fetchShipments = async () => {
     try {
       const response = await getShipments();
-      const userShipmets = await response.data.data;
-      dispatch(setShipment(userShipmets));
+      const userShipmets = await response.data;
+      dispatch(setShipment(userShipmets.data));
+      setShipmentsDetails({
+        shipmentsNumber: userShipmets.shipments_number,
+        completedShipments: userShipmets.completed_shipment,
+        inProcess_shipments: userShipmets.inProcess_shipment,
+        canceled_shipments: userShipmets.canceled_shipment,
+      });
     } catch (error) {
       console.error("Error fetching shipments:", error);
     }
@@ -28,6 +40,8 @@ function Dashboard() {
   useEffect(() => {
     fetchShipments();
   }, []);
+
+  console.log(shipmentsDetails);
 
   return (
     <div>
