@@ -16,6 +16,7 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
     waybill: "",
     name: "",
     phone: "",
+    status_id: "1",
     address: {
       latitude: "",
       longitude: "",

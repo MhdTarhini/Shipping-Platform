@@ -3,7 +3,6 @@
     flex-direction: column;
     border: 1px solid #ccc;
     border-radius: 4px;
-    overflow: hidden;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -53,4 +52,10 @@
     font-size: 20px;
     font-weight: 700;
     color: gray;
+}
+
+@media (max-width: 768px) {
+    .shipments-table {
+        overflow-y: scroll;
+    }
 }
