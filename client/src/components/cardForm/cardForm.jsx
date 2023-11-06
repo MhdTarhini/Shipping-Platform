@@ -88,6 +88,7 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
               type="text"
               readOnly
               value={openEdit ? shipmentDetails.waybill : "************"}
+              className="waybill-input"
             />
           </div>
           <div className="flex column gap">
@@ -96,7 +97,7 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
               type={"text"}
               name={"name"}
               onchange={handleValueChange}
-              placeholder={shipmentDetails?.name}
+              placeholder={shipmentDetails?.name || "name"}
             />
           </div>
           <div className="flex column gap">
@@ -104,7 +105,7 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
             <Input
               type={"text"}
               name={"phone"}
-              placeholder={shipmentDetails?.phone_number}
+              placeholder={shipmentDetails?.phone_number || "+1 (555) 000-000"}
               onchange={handleValueChange}
             />
           </div>
@@ -116,14 +117,14 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
                 type={"text"}
                 name={"latitude"}
                 onchange={handleValueChange}
-                placeholder={shipmentDetails?.address?.latitude}
+                placeholder={shipmentDetails?.address?.latitude || "latitude"}
               />
               longitude
               <Input
                 type={"text"}
                 name={"longitude"}
                 onchange={handleValueChange}
-                placeholder={shipmentDetails?.address?.longitude}
+                placeholder={shipmentDetails?.address?.longitude || "longitude"}
               />
             </span>
           </div>

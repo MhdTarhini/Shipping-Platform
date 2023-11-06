@@ -109,7 +109,7 @@ function Login() {
                     />
                   </svg>
                   <Input
-                    label={"mail@example.com"}
+                    placeholder={"mail@example.com"}
                     type={"text"}
                     onchange={handleLoginData}
                     name={"email"}
@@ -134,7 +134,7 @@ function Login() {
                     />
                   </svg>
                   <Input
-                    label={"password"}
+                    placeholder={"password"}
                     type={"password"}
                     onchange={handleLoginData}
                     name={"password"}

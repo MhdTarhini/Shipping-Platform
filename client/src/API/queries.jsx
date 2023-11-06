@@ -6,7 +6,7 @@ const API_BASE_URL = "http://127.0.0.1:8000/api";
 
 export const useAxios = () => {
   const user = useSelector(selectUser);
-  const token = user.authorisation.token;
+  const token = user?.authorisation?.token;
 
   const authAxios = axios.create({
     baseURL: API_BASE_URL,

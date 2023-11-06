@@ -22,7 +22,8 @@ function ViewMap() {
   });
 
   var markerIcon = new L.icon({
-    iconUrl: "location-point.svg",
+    iconUrl:
+      "https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/home-circle-blue-512.png",
     iconSize: [38, 38],
   });
 
@@ -30,14 +31,10 @@ function ViewMap() {
     <div>
       <div className="main flex">
         <div className="aside flex column">
-          {/* <AddCard setshipments={setshipments} /> */}
           <CardList setShipmentDetails={setShipmentDetails} />
         </div>
         <div className="map-container">
-          <MapContainer
-            center={[34.8669725, 37.489227]}
-            zoom={13}
-            scrollWheelZoom={false}>
+          <MapContainer center={[51.5, -0.9]} zoom={13}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

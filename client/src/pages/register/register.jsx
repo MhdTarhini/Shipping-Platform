@@ -125,7 +125,7 @@ function Register() {
                     </g>
                   </svg>
                   <Input
-                    label={"name"}
+                    placeholder={"name"}
                     type={"text"}
                     onchange={handleRegisterData}
                     name={"name"}
@@ -157,7 +157,7 @@ function Register() {
                     />
                   </svg>
                   <Input
-                    label={"mail@example.com"}
+                    placeholder={"mail@example.com"}
                     type={"text"}
                     onchange={handleRegisterData}
                     name={"email"}
@@ -183,7 +183,7 @@ function Register() {
                     />
                   </svg>
                   <Input
-                    label={"password"}
+                    placeholder={"password"}
                     type={"password"}
                     onchange={handleRegisterData}
                     name={"password"}
@@ -210,7 +210,7 @@ function Register() {
                     </g>
                   </svg>
                   <Input
-                    label={"address"}
+                    placeholder={"address"}
                     type={"text"}
                     onchange={handleRegisterData}
                     name={"address"}

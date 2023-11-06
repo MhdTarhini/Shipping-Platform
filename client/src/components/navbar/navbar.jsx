@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 import "./index.css";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../rkt/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser, selectUser } from "../../rkt/userSlice";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Navbar() {
-  const [toggle, setToggle] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const navigation = [
-    { name: "Dashboard", href: "/v1", current: toggle },
-    { name: "View Map", href: "/v1/view", current: !toggle },
+    { name: "Dashboard", href: "/v1", current: location.pathname === "/v1" },
+    {
+      name: "View Map",
+      href: "/v1/view",
+      current: location.pathname === "/v1/view",
+    },
   ];
   const user = useSelector(selectUser);
   return (
@@ -56,10 +62,7 @@ function Navbar() {
                             : "text-gray-300 hover:navbar-btn-clicked hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
-                        aria-current={item.current ? "page" : undefined}
-                        onClick={() => {
-                          setToggle(!toggle);
-                        }}>
+                        aria-current={item.current ? "page" : undefined}>
                         {item.name}
                       </Link>
                     ))}
@@ -67,9 +70,6 @@ function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <div className="user-info">{user.user.name}</div>
-
-                {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -98,19 +98,11 @@ function Navbar() {
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
-                            )}>
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}>
+                            )}
+                            onClick={() => {
+                              dispatch(clearUser());
+                              navigate("/");
+                            }}>
                             Sign out
                           </a>
                         )}

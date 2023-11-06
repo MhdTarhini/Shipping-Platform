@@ -1,11 +1,24 @@
 .shipment-card {
+    --dark-grey: #353535;
+    --middle-grey: #767676;
+    --shadow: 0 5px 15px 0 #00000026;
+    --shadow-active: 0 5px 5px 0 #00000026;
+    --lightest-grey: linear-gradient(#fafafa, #ebebeb);
+    --border-radius-main: 10px;
+    --border-radius-icon: 50px;
+    text-align: start;
+    color: var(--dark-grey);
+    opacity: .9;
+    font-weight: 600;
+    background: var(--lightest-grey);
+    max-width: max-content;
+    border-radius: var(--border-radius-main);
+    box-shadow: var(--shadow);
+    transition: .2s ease all;
     padding: 20px;
     gap: 5px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
-    background-color: white;
-    border-radius: 20px;
 }
 
 
