@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import ShipmentCard from "../shipmentCard/shipmentCard";
-import { useAxios } from "../../API/queries";
 import "./index.css";
 import { userShipments } from "../../rkt/ShipmentSlice";
 import { useSelector } from "react-redux";

@@ -1,9 +1,3 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEdit,
-  faLocationDot,
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
 import "./index.css";
 import { useState } from "react";
 import AddCard from "../cardForm/cardForm";
@@ -14,7 +8,6 @@ function ShipmentCard({
   name,
   phone,
   address,
-  setShipmentId,
   setShipmentDetails,
 }) {
   const [openEdit, setOpenEdit] = useState(false);

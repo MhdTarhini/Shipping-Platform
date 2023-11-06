@@ -109,35 +109,4 @@ class ShipmentController extends Controller
         ]);
     }
 
-    public function getShipmentsDetails(){
-        $user=Auth::user();
-
-        if (!$user) {
-        return response()->json([
-            'status' => 'error',
-            'message' => 'User not authenticated.',
-        ], 401);
-        }
-
-        $userId = $user->id;
-
-        $shipments_number = Shipment::where('user_id', $userId)->count();
-
-        $completed_shipment=Shipment::isCompleted($userId)->count();
-
-        $inProcess_shipment=Shipment::isInProces($userId)->count();
-        
-        $canceled_shipment=Shipment::isCanceled($userId)->count();
-
-        return response()->json([
-            'status' => 'success',
-            'shipments_number'=>$shipments_number,
-            'completed_shipment'=>$completed_shipment,
-            'inProcess_shipment'=>$inProcess_shipment,
-            'canceled_shipment'=>$canceled_shipment,
-        ]);
-
-    }
-
-
 }

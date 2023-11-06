@@ -10,20 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class AuthController extends Controller
 {
-     public function unauthorized(Request $request){
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Unauthorized',
-        ], 200);
-    }
-
-    public function profile(Request $request){
-        return response()->json([
-            'status' => 'success',
-            'data' => Auth::user(),
-        ], 200);
-    }
-
     public function login(Request $request)
     {
         $request->validate([
@@ -82,16 +68,6 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully logged out',
-        ]);
-    }
-
-    public function refresh() {
-        $user = Auth::user();
-        $user->token = Auth::refresh();
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $user
         ]);
     }
 

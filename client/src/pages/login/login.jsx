@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useAxios } from "../../API/queries";
 import Loading from "../../components/loading/loading";
 import { validateUserData } from "../../components/validateUserData/validateUserData";
-import { useSelector, useDispatch } from "react-redux";
-import { setUser, selectUser } from "../../rkt/userSlice";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../rkt/userSlice";
 
 function Login() {
   const { login } = useAxios();
@@ -23,7 +23,6 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   const handleLoginData = (e) => {

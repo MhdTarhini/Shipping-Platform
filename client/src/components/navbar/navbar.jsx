@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import "./index.css";
-import { useDispatch, useSelector } from "react-redux";
-import { clearUser, selectUser } from "../../rkt/userSlice";
+import { useDispatch } from "react-redux";
+import { clearUser } from "../../rkt/userSlice";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAxios } from "../../API/queries";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 function Navbar() {
+  const { logoutAPI } = useAxios();
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -23,7 +25,17 @@ function Navbar() {
       current: location.pathname === "/v1/view",
     },
   ];
-  const user = useSelector(selectUser);
+  const handleLogout = async () => {
+    try {
+      const response = await logoutAPI();
+      if (response.data.status === "success") {
+        dispatch(clearUser());
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Disclosure as="nav" className="navbar-color">
       {({ open }) => (
@@ -93,18 +105,16 @@ function Navbar() {
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <div
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-gray-700"
                             )}
                             onClick={() => {
-                              dispatch(clearUser());
-                              navigate("/");
+                              handleLogout();
                             }}>
                             Sign out
-                          </a>
+                          </div>
                         )}
                       </Menu.Item>
                     </Menu.Items>

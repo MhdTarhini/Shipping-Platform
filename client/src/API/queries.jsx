@@ -23,6 +23,11 @@ export const useAxios = () => {
     return response;
   };
 
+  const logoutAPI = async () => {
+    const response = await authAxios.post(`/logout`);
+    return response;
+  };
+
   const deleteShipmentAPI = async (shipmentData) => {
     const response = await authAxios.post(`/shipment/delete`, shipmentData);
     return response;
@@ -47,6 +52,7 @@ export const useAxios = () => {
     deleteShipmentAPI,
     getShipments,
     addShipmentAPI,
+    logoutAPI,
   };
 };
 
