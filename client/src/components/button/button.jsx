@@ -1,12 +1,12 @@
 import React from "react";
 import "./index.css";
 
-function Button({ name, color, onClick }) {
+function Button({ name, style, onClick }) {
   return (
-    <button class="pushable" onClick={onClick}>
-      <span class="shadow"></span>
-      <span class="edge"></span>
-      <span class={`front ${color}`}>{name}</span>
+    <button className="pushable" onClick={onClick}>
+      <span className="shadow"></span>
+      <span className="edge"></span>
+      <span className="front">{name}</span>
     </button>
   );
 }

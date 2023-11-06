@@ -88,10 +88,6 @@ button {
 .non-pointer {
     cursor: not-allowed !important;
 }
-.red {
-    color: red;
-}
-
-.green {
-    color: green;
+.gap-10{
+    gap:20px
 }

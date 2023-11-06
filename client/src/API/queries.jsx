@@ -33,7 +33,7 @@ export const useAxios = () => {
     return response;
   };
 
-  const addShipment = async (shipmentData, param) => {
+  const addShipmentAPI = async (shipmentData, param) => {
     const response = await authAxios.post(
       `/shipment/add_edit/${param}`,
       shipmentData
@@ -41,6 +41,6 @@ export const useAxios = () => {
     return response;
   };
 
-  return { register, login, deleteShipmentAPI, getShipments, addShipment };
+  return { register, login, deleteShipmentAPI, getShipments, addShipmentAPI };
 };
 

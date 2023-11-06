@@ -1,15 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAdd, faCircleXmark, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faPen } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import "./index.css";
 import Input from "../input/input";
 import { useAxios } from "../../API/queries";
 import { useDispatch } from "react-redux";
-import { editShipment, setShipment } from "../../rkt/ShipmentSlice";
+import { addShipment, editShipment } from "../../rkt/ShipmentSlice";
 import Modal from "react-modal";
 
 function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
-  const { addShipment } = useAxios();
+  const { addShipmentAPI } = useAxios();
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
@@ -41,14 +41,13 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
 
   const handleClick = async (e) => {
     try {
-      const response = await addShipment(
+      const response = await addShipmentAPI(
         input,
         openEdit ? shipmentDetails.id : "add"
       );
       const newShipment = await response.data.data;
       if (!openEdit) {
-        dispatch(setShipment(newShipment));
-        // setshipments((shipments) => [newShipment, ...shipments]);
+        dispatch(addShipment(newShipment));
       } else {
         const id = shipmentDetails.id;
         dispatch(editShipment({ id, newShipment }));
@@ -60,8 +59,8 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
         phone: "",
         address: "",
       });
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
     closeModal();
   };

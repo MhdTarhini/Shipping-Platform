@@ -11,8 +11,20 @@ class Shipment extends Model
     protected $casts = [
         'address' => 'array',
     ];
+    protected $fillable = [
+        'user_id',
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    function scopeIsInProces($query,$id){
+        return $query->where('user_id', $id)->where("status",1);
+    }
+    function scopeIsCompleted($query,$id){
+        return $query->where('user_id', $id)->where("status",2);
+    }
+    function scopeIsCanceled($query,$id){
+        return $query->where('user_id', $id)->where("status",3);
     }
 }

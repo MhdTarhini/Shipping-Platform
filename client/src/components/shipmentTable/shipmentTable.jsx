@@ -18,9 +18,7 @@ function ShipmentTable() {
 
   const handleDelete = async (shipmentId) => {
     try {
-      const response = await deleteShipmentAPI({ id: shipmentId });
-      if (response.data.status === "success") {
-      }
+      await deleteShipmentAPI({ id: shipmentId });
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +45,7 @@ function ShipmentTable() {
           <div className="table-cell">Actions</div>
         </div>
         {userShipment.length != 0 ? (
-          userShipment.map((shipment) => {
+          userShipment?.map((shipment) => {
             return (
               <div className="table-row" key={shipment.waybill}>
                 <div className="table-cell">{shipment.waybill}</div>
@@ -56,25 +54,22 @@ function ShipmentTable() {
                 <div className="table-cell">
                   {shipment.address.latitude},{shipment.address.longitude}
                 </div>
-                <div className="table-cell">
-                  <button
-                    className="edit-button btn-form"
+                <div className="table-cell flex gap-10">
+                  <Button
+                    style={"green"}
+                    name={"Edit"}
                     onClick={() => {
                       setOpenModal(true);
                       setOpenEdit(true);
                       setShipmentDetails(shipment);
-                    }}>
-                    Edit
-                  </button>
+                    }}></Button>
                   <Button
-                    color={"red"}
-                    name={"delete"}
+                    style={"red"}
+                    name={"Delete"}
                     onClick={() => {
                       setShipmentId(shipment.id);
                       dispatch(deleteShipment(shipment.id));
-                    }}>
-                    Delete
-                  </Button>
+                    }}></Button>
                 </div>
               </div>
             );

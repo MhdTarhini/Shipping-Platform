@@ -12,7 +12,7 @@ export const shipmentSlice = createSlice({
       state.shipments = action.payload;
     },
     addShipment: (state, action) => {
-      state.shipments.push(action.payload);
+      state.shipments.unshift(action.payload);
     },
     editShipment: (state, action) => {
       const { id, newShipment } = action.payload;

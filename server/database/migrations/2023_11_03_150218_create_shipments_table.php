@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('name');
             $table->json('address');
             $table->string('phone_number');
+            $table->unsignedBigInteger('status_id');
+            $table->foreign('status_id')->references('id')->on('statuses');
             $table->timestamps();
         });
     }
