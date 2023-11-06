@@ -6,8 +6,9 @@ import Input from "../input/input";
 import { useAxios } from "../../API/queries";
 import { useDispatch } from "react-redux";
 import { editShipment, setShipment } from "../../rkt/ShipmentSlice";
+import Modal from "react-modal";
 
-function AddCard({ shipmentDetails, closeEdit, openEdit }) {
+function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
   const { addShipment } = useAxios();
   const dispatch = useDispatch();
 
@@ -38,66 +39,48 @@ function AddCard({ shipmentDetails, closeEdit, openEdit }) {
     }
   };
 
-  const [is_displayed, setDisplay] = useState(false);
-
-  const handleAddBtn = () => {
-    setDisplay(true);
-  };
   const handleClick = async (e) => {
-    if (is_displayed === true) {
-      try {
-        const response = await addShipment(
-          input,
-          openEdit ? shipmentDetails.id : "add"
-        );
-        const newShipment = await response.data.data;
-        if (!openEdit) {
-          dispatch(setShipment(newShipment));
-          // setshipments((shipments) => [newShipment, ...shipments]);
-        } else {
-          const { id } = shipmentDetails;
-          dispatch(editShipment({ id, newShipment }));
-        }
-
-        setInput({
-          waybill: "",
-          name: "",
-          phone: "",
-          address: "",
-        });
-      } catch (e) {
-        console.log(e);
+    try {
+      const response = await addShipment(
+        input,
+        openEdit ? shipmentDetails.id : "add"
+      );
+      const newShipment = await response.data.data;
+      if (!openEdit) {
+        dispatch(setShipment(newShipment));
+        // setshipments((shipments) => [newShipment, ...shipments]);
+      } else {
+        const id = shipmentDetails.id;
+        dispatch(editShipment({ id, newShipment }));
       }
+
+      setInput({
+        waybill: "",
+        name: "",
+        phone: "",
+        address: "",
+      });
+    } catch (e) {
+      console.log(e);
     }
-    setDisplay(false);
-    closeEdit();
+    closeModal();
   };
 
   useEffect(() => {
-    if (openEdit) setDisplay(true);
     if (shipmentDetails) {
       setInput(shipmentDetails);
     }
-  });
+  }, [shipmentDetails]);
 
   return (
-    <div>
-      {!is_displayed && (
-        <button className="add-btn" onClick={handleAddBtn}>
-          <FontAwesomeIcon icon={faAdd} />
-        </button>
-      )}
-      {is_displayed && (
-        <div className="contact-card flex column">
-          <FontAwesomeIcon
-            icon={faCircleXmark}
-            onClick={() => {
-              setDisplay(false);
-              if (openEdit) {
-                closeEdit();
-              }
-            }}
-          />
+    <>
+      <Modal
+        isOpen={openModal}
+        onRequestClose={closeModal}
+        ariaHideApp={false}
+        className="card-form-modal"
+        style={{ overlay: { background: "rgb(0 0 0 / 30%)" } }}>
+        <div>
           <div className="flex column gap">
             <h4>waybill:</h4>
             <input
@@ -112,7 +95,7 @@ function AddCard({ shipmentDetails, closeEdit, openEdit }) {
               type={"text"}
               name={"name"}
               onchange={handleValueChange}
-              value={shipmentDetails.name}
+              placeholder={shipmentDetails?.name}
             />
           </div>
           <div className="flex column gap">
@@ -120,7 +103,7 @@ function AddCard({ shipmentDetails, closeEdit, openEdit }) {
             <Input
               type={"text"}
               name={"phone"}
-              value={shipmentDetails.phone}
+              placeholder={shipmentDetails?.phone_number}
               onchange={handleValueChange}
             />
           </div>
@@ -132,19 +115,19 @@ function AddCard({ shipmentDetails, closeEdit, openEdit }) {
                 type={"text"}
                 name={"latitude"}
                 onchange={handleValueChange}
-                value={shipmentDetails.address.latitude}
+                placeholder={shipmentDetails?.address?.latitude}
               />
               longitude
               <Input
                 type={"text"}
                 name={"longitude"}
                 onchange={handleValueChange}
-                value={shipmentDetails.address.longitude}
+                placeholder={shipmentDetails?.address?.longitude}
               />
             </span>
           </div>
           <div className="controls flex d-row rh-flex-end g-4">
-            <button onClick={handleClick}>
+            <button onClick={handleClick} className="btn-form">
               {openEdit ? (
                 <div>
                   <FontAwesomeIcon icon={faPen} /> Update
@@ -157,9 +140,9 @@ function AddCard({ shipmentDetails, closeEdit, openEdit }) {
             </button>
           </div>
         </div>
-      )}
-    </div>
+      </Modal>
+    </>
   );
 }
 
-export default AddCard;
+export default CardForm;

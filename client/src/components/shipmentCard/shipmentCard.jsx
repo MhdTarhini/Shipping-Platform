@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./index.css";
 import { useState } from "react";
-import AddCard from "../addCard/addCard";
+import AddCard from "../cardForm/cardForm";
 
 function ShipmentCard({
   id,

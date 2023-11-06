@@ -11,11 +11,11 @@ class ShipmentController extends Controller
     public function addEditShipment(Request $request, $id="add")
     {
         $request->validate([
-            'name' => 'required|string',
-            'phone' => 'required|string',
-            'address' => 'required|array',
-            'address.latitude' => 'required_with:address|numeric',
-            'address.longitude' => 'required_with:address|numeric',
+            'name' => 'string|nullable',
+            'phone' => 'string|nullable',
+            'address'=>'array|nullable',
+            'address.latitude' => 'numeric|nullable',
+            'address.longitude' => 'numeric|nullable',
         ]);
 
         $user=Auth::user();
@@ -27,15 +27,17 @@ class ShipmentController extends Controller
             $shipment=new Shipment;
             $shipment->waybill = $this->generateWaybillNumber();
         }else{
-            $shipment=Shipment::Where("id",$id);
+            $shipment=Shipment::Where("id",$id)->first();
         }
         
         $shipment->name = $request->name;
         $shipment->phone_number = $request->phone;
         $shipment->address = $request->address;
         $shipment->user_id = $user->id;
-        if ($id == 'add') {
+         if ($id == 'add') {
             $shipment->save();
+        } else {
+            $shipment->update();
         }
 
         return response()->json([
@@ -53,17 +55,25 @@ class ShipmentController extends Controller
         return $waybillNumber;
 }
  
-        public function deleteShipment(Request $request)
-    {
-        $shipmentId = $request->id; 
-        
-        $shipment = Shipment::findOrFail($shipmentId);
-        $shipment->delete();
-        
+     public function deleteShipment(Request $request)
+{
+    $shipmentId = $request->id; 
+    
+    $shipment = Shipment::find($shipmentId);
+    
+    if (!$shipment) {
         return response()->json([
-            'status' => 'success',
+            'status' => 'error',
+            'message' => 'Shipment not found',
         ]);
     }
+
+    $shipment->delete();
+    
+    return response()->json([
+        'status' => 'success',
+    ]);
+}
 
     public function getShipment()
     {

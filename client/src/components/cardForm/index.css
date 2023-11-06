@@ -22,13 +22,15 @@
 }
 
 .contact-card {
-    gap: 20px;
+    gap: 25px;
     margin-left: 10px;
 }
 
-.model {
+.card-form-modal {
     position: absolute;
     top: 50px;
     left: 500px;
     z-index: 9999999 !important;
+    background-color: white;
+    padding: 20px;
 }

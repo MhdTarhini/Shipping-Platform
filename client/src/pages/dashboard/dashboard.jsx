@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setShipment, userShipments } from "../../rkt/ShipmentSlice";
 import { useAxios } from "../../API/queries";
+import ShipmentTable from "../../components/shipmentTable/shipmentTable";
 
 function Dashboard() {
   const { getShipments } = useAxios();
-  const shipments = useSelector(userShipments);
 
   const dispatch = useDispatch();
 
@@ -29,6 +29,7 @@ function Dashboard() {
         <div className="user-card"></div>
         <div className="user-shipment-card"></div>
       </div>
+      <ShipmentTable />
     </div>
   );
 }

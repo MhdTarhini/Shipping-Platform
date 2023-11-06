@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  shipments: [], // Define your initial state structure here
+  shipments: [],
 };
 
 export const shipmentSlice = createSlice({
@@ -15,12 +15,12 @@ export const shipmentSlice = createSlice({
       state.shipments.push(action.payload);
     },
     editShipment: (state, action) => {
-      const { id, updatedShipment } = action.payload;
+      const { id, newShipment } = action.payload;
       const index = state.shipments.findIndex((shipment) => shipment.id === id);
       if (index !== -1) {
         state.shipments[index] = {
           ...state.shipments[index],
-          ...updatedShipment,
+          ...newShipment,
         };
       }
     },

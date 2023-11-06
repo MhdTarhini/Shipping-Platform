@@ -23,7 +23,7 @@ export const useAxios = () => {
     return response;
   };
 
-  const deleteShipment = async (shipmentData) => {
+  const deleteShipmentAPI = async (shipmentData) => {
     const response = await authAxios.post(`/shipment/delete`, shipmentData);
     return response;
   };
@@ -41,6 +41,6 @@ export const useAxios = () => {
     return response;
   };
 
-  return { register, login, deleteShipment, getShipments, addShipment };
+  return { register, login, deleteShipmentAPI, getShipments, addShipment };
 };
 

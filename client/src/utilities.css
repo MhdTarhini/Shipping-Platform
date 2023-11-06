@@ -88,3 +88,10 @@ button {
 .non-pointer {
     cursor: not-allowed !important;
 }
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}

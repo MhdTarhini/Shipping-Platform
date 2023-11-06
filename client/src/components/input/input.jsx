@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./index.css";
 
-function Input({ onchange, label, name, type, value }) {
+function Input({ onchange, placeholder, name, type, value }) {
   return (
     <div className="flex column input-component ">
       <input
@@ -9,7 +9,7 @@ function Input({ onchange, label, name, type, value }) {
         name={name}
         id={name}
         value={value}
-        placeholder={label}
+        placeholder={placeholder}
         onChange={(e) => {
           onchange(e);
         }}
