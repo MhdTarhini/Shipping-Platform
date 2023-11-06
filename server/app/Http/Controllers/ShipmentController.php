@@ -33,6 +33,7 @@ class ShipmentController extends Controller
         $shipment->name = $request->name;
         $shipment->phone_number = $request->phone;
         $shipment->address = $request->address;
+        $shipment->status_id = $request->status_id;
         $shipment->user_id = $user->id;
          if ($id == 'add') {
             $shipment->save();

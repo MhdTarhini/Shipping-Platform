@@ -82,7 +82,10 @@
     justify-content: space-around;
     align-items: center;
     margin-top: 20px;
+}
+.icon-details {
     font-size: 30px;
+    align-items: center;
 }
 
 .items-center {
@@ -100,4 +103,11 @@
         margin-left: 0px;
         margin-left: 25px;
     }
+}
+
+.add-shipment{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
 }

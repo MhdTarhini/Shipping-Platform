@@ -76,23 +76,32 @@ function Dashboard() {
             {shipmentsDetails.shipmentsNumber} Total Shipments
           </div>
           <div className="other-details flex gap-4">
-            <div className="items-center flex gap-4">
-              {shipmentsDetails.completedShipments}
-              <FontAwesomeIcon
-                icon={faCircleCheck}
-                style={{ color: "#7deb0f" }}
-              />
+            <div className="items-center flex gap-4 column">
+              <div className="icon-details flex gap-4 ">
+                {shipmentsDetails.completedShipments}
+                <FontAwesomeIcon
+                  icon={faCircleCheck}
+                  style={{ color: "#7deb0f" }}
+                />
+              </div>
+              <div>completed</div>
             </div>
-            <div className="items-center flex gap-4">
-              {shipmentsDetails.inProcessShipments}
-              <FontAwesomeIcon
-                icon={faTruckRampBox}
-                style={{ color: "#0052e0" }}
-              />
+            <div className="items-center flex gap-4 column">
+              <div className="icon-details flex gap-4 ">
+                {shipmentsDetails.inProcessShipments}
+                <FontAwesomeIcon
+                  icon={faTruckRampBox}
+                  style={{ color: "#0052e0" }}
+                />
+              </div>
+              <div>In Process</div>
             </div>
-            <div className="items-center flex gap-4">
-              {shipmentsDetails.canceledShipments}
-              <FontAwesomeIcon icon={faBan} style={{ color: "#ff0505" }} />
+            <div className="items-center flex gap-4 column">
+              <div className="icon-details flex gap-4">
+                {shipmentsDetails.canceledShipments}
+                <FontAwesomeIcon icon={faBan} style={{ color: "#ff0505" }} />
+              </div>
+              <div>Canceled</div>
             </div>
           </div>
         </div>
@@ -121,7 +130,7 @@ function Dashboard() {
           NEW
         </div>
         <div
-          className="view-shipment like-dislike-container blue-card"
+          className="add-shipment like-dislike-container blue-card"
           onClick={() => {
             navigate("view");
           }}>

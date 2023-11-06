@@ -5,6 +5,8 @@ import { deleteShipment, userShipments } from "../../rkt/ShipmentSlice";
 import { useAxios } from "../../API/queries";
 import CardForm from "../cardForm/cardForm";
 import Button from "../button/button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBan, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 function ShipmentTable() {
   const userShipment = useSelector(userShipments);
@@ -34,6 +36,12 @@ function ShipmentTable() {
 
   console.log(userShipment);
 
+  const status = {
+    1: "In Process",
+    2: "Completed",
+    3: "Canceled",
+  };
+
   return (
     <>
       <div className="shipments-table">
@@ -42,6 +50,7 @@ function ShipmentTable() {
           <div className="table-cell">Name</div>
           <div className="table-cell">Phone</div>
           <div className="table-cell">Address</div>
+          <div className="table-cell">Status</div>
           <div className="table-cell">Actions</div>
         </div>
         {userShipment.length != 0 ? (
@@ -54,22 +63,56 @@ function ShipmentTable() {
                 <div className="table-cell">
                   {shipment.address.latitude},{shipment.address.longitude}
                 </div>
-                <div className="table-cell flex gap-10">
-                  <Button
-                    style={"green"}
-                    name={"Edit"}
-                    onClick={() => {
-                      setOpenModal(true);
-                      setOpenEdit(true);
-                      setShipmentDetails(shipment);
-                    }}></Button>
-                  <Button
-                    style={"red"}
-                    name={"Delete"}
-                    onClick={() => {
-                      setShipmentId(shipment.id);
-                      dispatch(deleteShipment(shipment.id));
-                    }}></Button>
+                <div className="table-cell status-cell">
+                  {status[shipment.status_id]}
+                </div>
+
+                <div className="table-cell flex gap-10 action-section">
+                  {shipment.status_id === 1 && (
+                    <div className="table-cell flex gap-10">
+                      <Button
+                        style={"green"}
+                        name={"Edit"}
+                        onClick={() => {
+                          setOpenModal(true);
+                          setOpenEdit(true);
+                          setShipmentDetails(shipment);
+                        }}></Button>
+                      <Button
+                        style={"red"}
+                        name={"Delete"}
+                        onClick={() => {
+                          setShipmentId(shipment.id);
+                          dispatch(deleteShipment(shipment.id));
+                        }}></Button>
+                    </div>
+                  )}
+                  {shipment.status_id === 2 && (
+                    <div className="table-cell icon-section">
+                      <FontAwesomeIcon
+                        icon={faCircleCheck}
+                        style={{
+                          color: "#7deb0f",
+                          width: "20px",
+                          height: "20px",
+                        }}
+                      />
+                      Completed
+                    </div>
+                  )}
+                  {shipment.status_id === 3 && (
+                    <div className="icon-section">
+                      <FontAwesomeIcon
+                        icon={faBan}
+                        style={{
+                          color: "#ff0505",
+                          width: "20px",
+                          height: "20px",
+                        }}
+                      />
+                      Canceled
+                    </div>
+                  )}
                 </div>
               </div>
             );

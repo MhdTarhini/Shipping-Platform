@@ -26,11 +26,31 @@
     margin-left: 10px;
 }
 
-.card-form-modal {
+/* .card-form-modal {
     position: absolute;
     top: 50px;
     left: 500px;
     z-index: 9999999 !important;
     background-color: white;
     padding: 20px;
+}
+*/ .card-form-modal {
+    position: absolute;
+    top: 50px;
+    left: 500px;
+    padding: 30px;
+    background-color: #d0d0d0;
+    border-radius: 25px;
+    transition: .4s ease-in-out;
+
+}
+
+.card-form-modal:hover {
+    transform: scale(1.05);
+}
+
+#heading {
+    text-align: center;
+    color: rgb(66, 66, 66);
+    font-size: 1.2em;
 }

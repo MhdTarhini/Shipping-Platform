@@ -59,3 +59,21 @@
         overflow-y: scroll;
     }
 }
+.action-section {
+    width: 300px;
+    align-items: center;
+}
+
+.icon-section {
+    width: 265px;
+    display: flex;
+    font-size: 18px;
+    gap: 5px;
+    color: gray;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-cell {
+    text-align: center;
+}

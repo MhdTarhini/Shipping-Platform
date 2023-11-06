@@ -80,6 +80,7 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
         ariaHideApp={false}
         className="card-form-modal"
         style={{ overlay: { background: "rgb(0 0 0 / 30%)" } }}>
+        <p id="heading">{openEdit ? "Edit Shipment" : "New Shipment"}</p>
         <div>
           <div className="flex column gap">
             <h4>waybill:</h4>
