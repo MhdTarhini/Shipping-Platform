@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { selectUser } from "../../rkt/userSlice";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { Marker } from "react-leaflet";
 import { Popup } from "react-leaflet";
-import AddCard from "../../components/addCard/addCard";
 import "./index.css";
-import { useAxios } from "../../API/queries";
 import "leaflet/dist/leaflet.css";
 import CardList from "../../components/cardList/cardList";
-import ShipmentCard from "../../components/shipmentCard/shipmentCard";
 import L from "leaflet";
 
 function ChangeLocation({ lat, long }) {
@@ -19,23 +14,12 @@ function ChangeLocation({ lat, long }) {
 }
 
 function ViewMap() {
-  const { getShipments } = useAxios();
   const [shipmentDetails, setShipmentDetails] = useState({
     waybill: "",
     name: "",
     phone: "",
     address: "",
   });
-  const [shipments, setshipments] = useState([]);
-
-  const fetchshipments = async () => {
-    const response = await getShipments();
-    setshipments([...response.data.data]);
-  };
-
-  useEffect(() => {
-    fetchshipments();
-  }, []);
 
   var markerIcon = new L.icon({
     iconUrl: "location-point.svg",
@@ -47,11 +31,7 @@ function ViewMap() {
       <div className="main flex">
         <div className="aside flex column">
           {/* <AddCard setshipments={setshipments} /> */}
-          <CardList
-            shipments={shipments}
-            setshipments={setshipments}
-            setShipmentDetails={setShipmentDetails}
-          />
+          <CardList setShipmentDetails={setShipmentDetails} />
         </div>
         <div className="map-container">
           <MapContainer

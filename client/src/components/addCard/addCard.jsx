@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import "./index.css";
 import Input from "../input/input";
 import { useAxios } from "../../API/queries";
+import { useDispatch } from "react-redux";
+import { editShipment, setShipment } from "../../rkt/ShipmentSlice";
 
-function AddCard({ setshipments, shipmentDetails, closeEdit, openEdit }) {
+function AddCard({ shipmentDetails, closeEdit, openEdit }) {
   const { addShipment } = useAxios();
+  const dispatch = useDispatch();
 
   const [input, setInput] = useState({
     waybill: "",
@@ -49,8 +52,13 @@ function AddCard({ setshipments, shipmentDetails, closeEdit, openEdit }) {
         );
         const newShipment = await response.data.data;
         if (!openEdit) {
-          setshipments((shipments) => [newShipment, ...shipments]);
+          dispatch(setShipment(newShipment));
+          // setshipments((shipments) => [newShipment, ...shipments]);
+        } else {
+          const { id } = shipmentDetails;
+          dispatch(editShipment({ id, newShipment }));
         }
+
         setInput({
           waybill: "",
           name: "",

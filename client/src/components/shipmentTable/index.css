@@ -1,0 +1,49 @@
+.shipments-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.table-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.table-header {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.table-cell {
+    flex: 1;
+    padding: 0 10px;
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.edit-button {
+    background-color: #007bff;
+}
+
+.delete-button {
+    background-color: #ff0000;
+}
+
+.view-button {
+    background-color: #00cc00;
+}

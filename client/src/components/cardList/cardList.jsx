@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import ShipmentCard from "../shipmentCard/shipmentCard";
 import { useAxios } from "../../API/queries";
 import "./index.css";
+import { userShipments } from "../../rkt/ShipmentSlice";
+import { useSelector } from "react-redux";
 
 function CardList({ shipments, setshipments, setShipmentDetails }) {
+  const userShipment = useSelector(userShipments);
   const { deleteShipment } = useAxios();
   const [shipmentId, setshipmentId] = useState(0);
 
@@ -21,7 +24,7 @@ function CardList({ shipments, setshipments, setShipmentDetails }) {
   }, [shipmentId]);
   return (
     <div className="card-list flex column">
-      {shipments.map((shipment) => (
+      {userShipment.map((shipment) => (
         <ShipmentCard
           shipment={shipment}
           key={shipment.id}
