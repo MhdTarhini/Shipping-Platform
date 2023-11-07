@@ -64,6 +64,7 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
           name: "",
           phone: "",
           address: "",
+          status_id: "1",
         });
         closeModal();
       } catch (error) {
@@ -78,7 +79,6 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
   }, [shipmentDetails]);
 
   const validateForm = () => {
-    console.log("heree");
     const newErrors = {};
     let isValid = true;
 

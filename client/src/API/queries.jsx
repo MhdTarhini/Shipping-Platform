@@ -38,6 +38,11 @@ export const useAxios = () => {
     return response;
   };
 
+  const searchShipmentsAPI = async (data) => {
+    const response = await authAxios.get(`/shipment/search/${data}`);
+    return response;
+  };
+
   const addShipmentAPI = async (shipmentData, param) => {
     const response = await authAxios.post(
       `/shipment/add_edit/${param}`,
@@ -53,6 +58,7 @@ export const useAxios = () => {
     getShipments,
     addShipmentAPI,
     logoutAPI,
+    searchShipmentsAPI,
   };
 };
 

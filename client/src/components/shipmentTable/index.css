@@ -78,3 +78,46 @@
 .status-cell {
     text-align: center;
 }
+.group {
+    display: flex;
+    flex-direction: row-reverse;
+    line-height: 28px;
+    align-items: center;
+    position: relative;
+    max-width: 300px;
+}
+
+.input-search-field {
+    width: 100%;
+    height: 40px;
+    line-height: 28px;
+    padding: 0 1rem;
+    padding-right: 2.5rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    outline: none;
+    background-color: #f3f3f4;
+    color: #0d0c22;
+    transition: .3s ease;
+}
+
+.input-search-field::placeholder {
+    color: #9e9ea7;
+}
+
+.input-search-field:focus,
+.input-search-field:hover {
+    outline: none;
+    border-color: #2494EA;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px #94ccf7e9;
+}
+
+.icon-search {
+    position: absolute;
+    left: 16.5rem;
+    fill: #9e9ea7;
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+}

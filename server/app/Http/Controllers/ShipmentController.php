@@ -109,4 +109,21 @@ class ShipmentController extends Controller
         ]);
     }
 
+    public function searchShipment($data) {
+        $shipments_data = Shipment::query();
+
+        $shipments_data->where(function ($query) use ($data) {
+            $query->where('name', 'like', '%' . $data . '%')
+                ->orWhere('waybill', 'like', '%' . $data . '%')
+                ->orWhere('phone_number', 'like', '%' . $data . '%');
+        });
+
+        $results = $shipments_data->get();
+
+        return response()->json([
+            "status" => "success", 
+            "data" => $results
+        ]);
+}
+
 }

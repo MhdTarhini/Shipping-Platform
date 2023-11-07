@@ -7,6 +7,7 @@ import CardForm from "../cardForm/cardForm";
 import Button from "../button/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import Alert from "../alert/alert";
 
 function ShipmentTable() {
   const userShipment = useSelector(userShipments);
@@ -14,27 +15,17 @@ function ShipmentTable() {
   const [openModal, setOpenModal] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [shipmentDetails, setShipmentDetails] = useState([]);
-  const { deleteShipmentAPI } = useAxios();
+  const [searchInput, setSearchInput] = useState("");
+  const [isCofirmed, setIsConfirmed] = useState(false);
+  const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
+  const { deleteShipmentAPI, searchShipmentsAPI } = useAxios();
+  const [displayShipment, setDisplayedShipment] = useState(userShipment);
 
   const dispatch = useDispatch();
-
-  const handleDelete = async (shipmentId) => {
-    try {
-      await deleteShipmentAPI({ id: shipmentId });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (shipmentId) handleDelete(shipmentId);
-  }, [shipmentId]);
 
   const closeModal = () => {
     setOpenModal(false);
   };
-
-  console.log(userShipment);
 
   const status = {
     1: "In Process",
@@ -42,8 +33,60 @@ function ShipmentTable() {
     3: "Canceled",
   };
 
+  const handleDelete = async () => {
+    try {
+      await deleteShipmentAPI({ id: shipmentId });
+      dispatch(deleteShipment(shipmentId));
+      setIsConfirmed(false);
+    } catch (error) {
+      console.log(error);
+      setIsConfirmed(false);
+    }
+  };
+
+  const handleSearch = async () => {
+    try {
+      const response = await searchShipmentsAPI(searchInput);
+      const filteredShipments = await response.data.data;
+      setDisplayedShipment(filteredShipments);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (isCofirmed) handleDelete();
+  }, [isCofirmed]);
+
+  useEffect(() => {
+    if (searchInput.length == 0) setDisplayedShipment(userShipment);
+  }, [searchInput]);
+
   return (
     <>
+      <div className="search-input">
+        <div className="group">
+          <svg
+            className="icon-search"
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            onClick={() => {
+              handleSearch();
+            }}>
+            <g>
+              <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+            </g>
+          </svg>
+          <input
+            placeholder="Search"
+            type="search"
+            class="input-search-field"
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+            }}
+          />
+        </div>
+      </div>
       <div className="shipments-table">
         <div className="table-row table-header">
           <div className="table-cell">Waybill</div>
@@ -54,7 +97,7 @@ function ShipmentTable() {
           <div className="table-cell">Actions</div>
         </div>
         {userShipment.length != 0 ? (
-          userShipment?.map((shipment) => {
+          displayShipment?.map((shipment) => {
             return (
               <div className="table-row" key={shipment.waybill}>
                 <div className="table-cell">{shipment.waybill}</div>
@@ -68,7 +111,31 @@ function ShipmentTable() {
                 </div>
 
                 <div className="table-cell flex gap-10 action-section">
-                  {shipment.status_id === 1 && (
+                  {shipment.status_id === 2 ? (
+                    <div className="table-cell icon-section">
+                      <FontAwesomeIcon
+                        icon={faCircleCheck}
+                        style={{
+                          color: "#7deb0f",
+                          width: "20px",
+                          height: "20px",
+                        }}
+                      />
+                      Completed
+                    </div>
+                  ) : shipment.status_id === 3 ? (
+                    <div className="icon-section">
+                      <FontAwesomeIcon
+                        icon={faBan}
+                        style={{
+                          color: "#ff0505",
+                          width: "20px",
+                          height: "20px",
+                        }}
+                      />
+                      Canceled
+                    </div>
+                  ) : (
                     <div className="table-cell flex gap-10">
                       <Button
                         style={"green"}
@@ -83,34 +150,8 @@ function ShipmentTable() {
                         name={"Delete"}
                         onClick={() => {
                           setShipmentId(shipment.id);
-                          dispatch(deleteShipment(shipment.id));
+                          setOpenDeleteAlert(true);
                         }}></Button>
-                    </div>
-                  )}
-                  {shipment.status_id === 2 && (
-                    <div className="table-cell icon-section">
-                      <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        style={{
-                          color: "#7deb0f",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                      Completed
-                    </div>
-                  )}
-                  {shipment.status_id === 3 && (
-                    <div className="icon-section">
-                      <FontAwesomeIcon
-                        icon={faBan}
-                        style={{
-                          color: "#ff0505",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                      Canceled
                     </div>
                   )}
                 </div>
@@ -127,6 +168,16 @@ function ShipmentTable() {
         shipmentDetails={shipmentDetails}
         openEdit={openEdit}
       />
+      {openDeleteAlert && (
+        <Alert
+          actionName={"Delete"}
+          setIsConfirmed={setIsConfirmed}
+          alertContent={
+            "Are you sure you want to delete your shipment? Your shipment data will be deleted."
+          }
+          setOpenDeleteAlert={setOpenDeleteAlert}
+        />
+      )}
     </>
   );
 }

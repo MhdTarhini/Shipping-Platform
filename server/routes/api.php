@@ -17,6 +17,7 @@ Route::group(["middleware" => "auth:api"], function(){
             Route::post("add_edit/{id?}", [ShipmentController::class, "addEditShipment"]);
             Route::get("get", [ShipmentController::class, "getShipment"]);
             Route::post("delete", [ShipmentController::class, "deleteShipment"]);
+            Route::get("search/{data?}", [ShipmentController::class, "searchShipment"]);
         });
 });
 
