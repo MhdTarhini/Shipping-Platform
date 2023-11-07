@@ -14,10 +14,10 @@
 
 
 ::-webkit-scrollbar {
-    width: 10px;
+    display: none;
 }
 
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
     width: 1px;
     background-color: rgba(130, 129, 130, 0.795);
 }
@@ -32,6 +32,8 @@
     width: 1px;
     background: rgba(130, 129, 130, 0.795);
 }
+
+*/
 
 .map-container {
     width: 100vw;

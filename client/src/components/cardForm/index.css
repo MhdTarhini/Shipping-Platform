@@ -26,6 +26,11 @@
     margin-left: 10px;
 }
 
+.card-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
 .card-form-modal {
     position: absolute;
     top: 50px;
@@ -36,6 +41,10 @@
     border-radius: 0.5rem;
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 
+}
+.error-message {
+    color: red;
+    font-size: 12px;
 }
 
 .card-form-modal:hover {

@@ -22,6 +22,8 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
       longitude: "",
     },
   });
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState([]);
 
   const handleValueChange = (e) => {
     if (e.target.name === "latitude" || e.target.name === "longitude") {
@@ -41,47 +43,90 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
   };
 
   const handleClick = async (e) => {
-    try {
-      const response = await addShipmentAPI(
-        input,
-        openEdit ? shipmentDetails.id : "add"
-      );
-      const newShipment = await response.data.data;
-      if (!openEdit) {
-        dispatch(addShipment(newShipment));
-      } else {
-        const id = shipmentDetails.id;
-        dispatch(editShipment({ id, newShipment }));
+    if (!openEdit && !validateForm()) {
+      setError(true);
+    } else {
+      try {
+        const response = await addShipmentAPI(
+          input,
+          openEdit ? shipmentDetails.id : "add"
+        );
+        const newShipment = await response.data.data;
+        if (!openEdit) {
+          dispatch(addShipment(newShipment));
+        } else {
+          const id = shipmentDetails.id;
+          dispatch(editShipment({ id, newShipment }));
+        }
+
+        setInput({
+          waybill: "",
+          name: "",
+          phone: "",
+          address: "",
+        });
+        closeModal();
+      } catch (error) {
+        console.log(error);
       }
-
-      setInput({
-        waybill: "",
-        name: "",
-        phone: "",
-        address: "",
-      });
-    } catch (error) {
-      console.log(error);
     }
-    closeModal();
   };
-
   useEffect(() => {
     if (shipmentDetails) {
       setInput(shipmentDetails);
     }
   }, [shipmentDetails]);
 
+  const validateForm = () => {
+    console.log("heree");
+    const newErrors = {};
+    let isValid = true;
+
+    if (!input.name) {
+      newErrors.name = "Name is required";
+      isValid = true;
+    }
+
+    if (!input.phone) {
+      newErrors.phone = "Phone is required";
+      isValid = false;
+    } else if (isNaN(input.phone)) {
+      newErrors.phone = "Phone must be a number";
+      isValid = false;
+    }
+    if (!input.address.latitude) {
+      newErrors.latitude = "Latitude is required";
+      isValid = false;
+    } else if (isNaN(input.address.latitude)) {
+      newErrors.latitude = "Latitude must be a number";
+      isValid = false;
+    }
+
+    if (!input.address.longitude) {
+      newErrors.longitude = "Longitude is required";
+      isValid = false;
+    } else if (isNaN(input.address.longitude)) {
+      newErrors.longitude = "Longitude must be a number";
+      isValid = false;
+    }
+
+    setErrorMessage(newErrors);
+    return isValid;
+  };
+
   return (
     <>
       <Modal
         isOpen={openModal}
-        onRequestClose={closeModal}
+        onRequestClose={() => {
+          closeModal();
+          setError(false);
+        }}
         ariaHideApp={false}
         className="card-form-modal"
         style={{ overlay: { background: "rgb(0 0 0 / 30%)" } }}>
         <p id="heading">{openEdit ? "Edit Shipment" : "New Shipment"}</p>
-        <div>
+        <div className="card-form">
           <div className="flex column gap">
             <h4>waybill:</h4>
             <input
@@ -99,6 +144,7 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
               onchange={handleValueChange}
               placeholder={shipmentDetails?.name || "name"}
             />
+            {error && <div className="error-message">{errorMessage.name}</div>}
           </div>
           <div className="flex column gap">
             <h4>Phone:</h4>
@@ -108,6 +154,7 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
               placeholder={shipmentDetails?.phone_number || "+1 (555) 000-000"}
               onchange={handleValueChange}
             />
+            {error && <div className="error-message">{errorMessage.phone}</div>}
           </div>
           <div className="flex column gap">
             <h4>address:</h4>
@@ -119,6 +166,9 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
                 onchange={handleValueChange}
                 placeholder={shipmentDetails?.address?.latitude || "latitude"}
               />
+              {error && (
+                <div className="error-message">{errorMessage.latitude}</div>
+              )}
               longitude
               <Input
                 type={"text"}
@@ -126,6 +176,9 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
                 onchange={handleValueChange}
                 placeholder={shipmentDetails?.address?.longitude || "longitude"}
               />
+              {error && (
+                <div className="error-message">{errorMessage.longitude}</div>
+              )}
             </span>
           </div>
           <div className="controls flex d-row rh-flex-end g-4">

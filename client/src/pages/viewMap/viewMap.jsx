@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { Marker } from "react-leaflet";
 import { Popup } from "react-leaflet";
@@ -6,6 +6,7 @@ import "./index.css";
 import "leaflet/dist/leaflet.css";
 import CardList from "../../components/cardList/cardList";
 import L from "leaflet";
+import LoadingLogo from "../../components/loadingLogo/loadingLogo";
 
 function ChangeLocation({ lat, long }) {
   const map = useMap();
@@ -20,6 +21,7 @@ function ViewMap() {
     phone: "",
     address: "",
   });
+  const [showLogo, setShowLogo] = useState(true);
 
   var markerIcon = new L.icon({
     iconUrl:
@@ -27,42 +29,52 @@ function ViewMap() {
     iconSize: [38, 38],
   });
 
+  useEffect(() => {
+    setTimeout(() => {
+      setShowLogo(false);
+    }, 3000);
+  }, []);
+
   return (
     <div>
-      <div className="main flex">
-        <div className="aside flex column">
-          <CardList setShipmentDetails={setShipmentDetails} />
+      {showLogo ? (
+        <LoadingLogo />
+      ) : (
+        <div className="main flex">
+          <div className="aside flex column">
+            <CardList setShipmentDetails={setShipmentDetails} />
+          </div>
+          <div className="map-container">
+            <MapContainer center={[51.5, -0.9]} zoom={13}>
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {shipmentDetails.address.latitude &&
+                shipmentDetails.address.longitude && (
+                  <>
+                    <ChangeLocation
+                      lat={parseFloat(shipmentDetails.address.latitude)}
+                      long={parseFloat(shipmentDetails.address.longitude)}
+                    />
+                    <Marker
+                      position={[
+                        parseFloat(shipmentDetails.address.latitude),
+                        parseFloat(shipmentDetails.address.longitude),
+                      ]}
+                      icon={markerIcon}>
+                      <Popup>
+                        <p>waybill: {shipmentDetails.waybill}</p>
+                        <p>name : {shipmentDetails.name}</p>
+                        <p>phone : {shipmentDetails.phone}</p>
+                      </Popup>
+                    </Marker>
+                  </>
+                )}
+            </MapContainer>
+          </div>
         </div>
-        <div className="map-container">
-          <MapContainer center={[51.5, -0.9]} zoom={13}>
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {shipmentDetails.address.latitude &&
-              shipmentDetails.address.longitude && (
-                <>
-                  <ChangeLocation
-                    lat={parseFloat(shipmentDetails.address.latitude)}
-                    long={parseFloat(shipmentDetails.address.longitude)}
-                  />
-                  <Marker
-                    position={[
-                      parseFloat(shipmentDetails.address.latitude),
-                      parseFloat(shipmentDetails.address.longitude),
-                    ]}
-                    icon={markerIcon}>
-                    <Popup>
-                      <p>waybill: {shipmentDetails.waybill}</p>
-                      <p>name : {shipmentDetails.name}</p>
-                      <p>phone : {shipmentDetails.phone}</p>
-                    </Popup>
-                  </Marker>
-                </>
-              )}
-          </MapContainer>
-        </div>
-      </div>
+      )}
     </div>
   );
 }

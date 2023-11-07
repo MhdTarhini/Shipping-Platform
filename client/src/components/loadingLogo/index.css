@@ -1,0 +1,24 @@
+@keyframes colorChange {
+    0% {
+        fill: #2494EA;
+    }
+
+    50% {
+        fill: #f2f2f2;
+    }
+
+    100% {
+        fill: #2494EA;
+    }
+}
+
+.logo-animation {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+}
+
+.logo-animation path {
+    animation: colorChange 2s linear infinite;
+
+}
