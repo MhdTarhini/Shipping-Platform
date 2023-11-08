@@ -7,6 +7,8 @@ import "leaflet/dist/leaflet.css";
 import CardList from "../../components/cardList/cardList";
 import L from "leaflet";
 import LoadingLogo from "../../components/loadingLogo/loadingLogo";
+import { useSelector } from "react-redux";
+import { userShipments } from "../../rkt/ShipmentSlice";
 
 function ChangeLocation({ lat, long }) {
   const map = useMap();
@@ -22,6 +24,7 @@ function ViewMap() {
     address: "",
   });
   const [showLogo, setShowLogo] = useState(true);
+  const userShpments = useSelector(userShipments);
 
   var markerIcon = new L.icon({
     iconUrl:
@@ -57,18 +60,23 @@ function ViewMap() {
                       lat={parseFloat(shipmentDetails.address.latitude)}
                       long={parseFloat(shipmentDetails.address.longitude)}
                     />
-                    <Marker
-                      position={[
-                        parseFloat(shipmentDetails.address.latitude),
-                        parseFloat(shipmentDetails.address.longitude),
-                      ]}
-                      icon={markerIcon}>
-                      <Popup>
-                        <p>waybill: {shipmentDetails.waybill}</p>
-                        <p>name : {shipmentDetails.name}</p>
-                        <p>phone : {shipmentDetails.phone}</p>
-                      </Popup>
-                    </Marker>
+                    {userShpments.map((shipment) => {
+                      return (
+                        <Marker
+                          position={[
+                            parseFloat(shipment.address.latitude),
+                            parseFloat(shipment.address.longitude),
+                          ]}
+                          icon={markerIcon}
+                          key={shipment.id}>
+                          <Popup>
+                            <p>waybill: {shipment.waybill}</p>
+                            <p>name : {shipment.name}</p>
+                            <p>phone : {shipment.phone_number}</p>
+                          </Popup>
+                        </Marker>
+                      );
+                    })}
                   </>
                 )}
             </MapContainer>

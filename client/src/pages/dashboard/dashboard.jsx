@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import LoadingLogo from "../../components/loadingLogo/loadingLogo";
+import Message from "../../components/Message/message";
 
 function Dashboard() {
   const { getShipments } = useAxios();
@@ -26,6 +27,7 @@ function Dashboard() {
     canceledShipments: "",
   });
   const [showLogo, setShowLogo] = useState(true);
+  const [showMessageNew, setShowMessageNew] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -62,10 +64,11 @@ function Dashboard() {
         <LoadingLogo />
       ) : (
         <>
+          <div className="top-color"></div>
           <div className="dashboard-items flex column">
             <h1 className="page-title-dashboard">Dashboard</h1>
             <div className="top-dashboard flex">
-              <div className="like-dislike-container light-card flex column gap-4 text-align-center">
+              <div className="like-dislike-container light-card flex column gap-10 text-align-center">
                 <div className="welcome-word">Welcome !</div>
                 <div className="flex user-card-detail">
                   <img
@@ -75,14 +78,27 @@ function Dashboard() {
                     className="user-image-card"
                   />
                   <div className="user-details flex column ">
-                    <div className="user-name">{user?.user.name}</div>
-                    <div className="user-email">{user?.user.email}</div>
-                    <div className="user-address">{user?.user.address}</div>
+                    <div className="user-name">
+                      Name :{" "}
+                      <span className="user-info-style">{user?.user.name}</span>
+                    </div>
+                    <div className="user-email">
+                      Email :{" "}
+                      <span className="user-info-style">
+                        {user?.user.email}
+                      </span>
+                    </div>
+                    <div className="user-address">
+                      Address :{" "}
+                      <span className="user-info-style">
+                        {user?.user.address}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
               <div className="like-dislike-container text-align-start light-card">
-                <div className="shipment-number card-title">
+                <div className="card-title">
                   {shipmentsDetails.shipmentsNumber} Total Shipments
                 </div>
                 <div className="other-details flex">
@@ -138,7 +154,14 @@ function Dashboard() {
 
             <ShipmentTable />
           </div>
-          <CardForm openModal={openModal} closeModal={closeModal} />
+          {showMessageNew && (
+            <Message text={"New Shipment has been created"} type={"success"} />
+          )}
+          <CardForm
+            openModal={openModal}
+            closeModal={closeModal}
+            setShowMessageNew={setShowMessageNew}
+          />
         </>
       )}
     </div>

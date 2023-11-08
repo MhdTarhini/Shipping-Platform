@@ -11,7 +11,7 @@
     opacity: .9;
     font-weight: 600;
     background: var(--lightest-grey);
-    max-width: max-content;
+    max-width: 300px;
     border-radius: var(--border-radius-main);
     box-shadow: var(--shadow);
     transition: .2s ease all;

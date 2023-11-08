@@ -8,14 +8,21 @@ import { useDispatch } from "react-redux";
 import { addShipment, editShipment } from "../../rkt/ShipmentSlice";
 import Modal from "react-modal";
 
-function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
+function CardForm({
+  shipmentDetails,
+  closeModal,
+  openModal,
+  openEdit,
+  setShowMessageNew,
+  setShowMessageEdit,
+}) {
   const { addShipmentAPI } = useAxios();
   const dispatch = useDispatch();
 
   const [input, setInput] = useState({
     waybill: "",
     name: "",
-    phone: "",
+    phone_number: "",
     status_id: "1",
     address: {
       latitude: "",
@@ -54,15 +61,17 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
         const newShipment = await response.data.data;
         if (!openEdit) {
           dispatch(addShipment(newShipment));
+          setShowMessageNew(true);
         } else {
           const id = shipmentDetails.id;
           dispatch(editShipment({ id, newShipment }));
+          setShowMessageEdit(true);
         }
 
         setInput({
           waybill: "",
           name: "",
-          phone: "",
+          phone_number: "",
           address: "",
           status_id: "1",
         });
@@ -87,11 +96,11 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
       isValid = true;
     }
 
-    if (!input.phone) {
-      newErrors.phone = "Phone is required";
+    if (!input.phone_number) {
+      newErrors.phone_number = "phone number is required";
       isValid = false;
-    } else if (isNaN(input.phone)) {
-      newErrors.phone = "Phone must be a number";
+    } else if (isNaN(input.phone_number)) {
+      newErrors.phone_number = "phone number must be a number";
       isValid = false;
     }
     if (!input.address.latitude) {
@@ -124,7 +133,9 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
         }}
         ariaHideApp={false}
         className="card-form-modal"
-        style={{ overlay: { background: "rgb(0 0 0 / 30%)" } }}>
+        style={{
+          overlay: { background: "rgb(0 0 0 / 30%)", zIndex: "999999" },
+        }}>
         <p id="heading">{openEdit ? "Edit Shipment" : "New Shipment"}</p>
         <div className="card-form">
           <div className="flex column gap">
@@ -150,11 +161,13 @@ function CardForm({ shipmentDetails, closeModal, openModal, openEdit }) {
             <h4>Phone:</h4>
             <Input
               type={"text"}
-              name={"phone"}
+              name={"phone_number"}
               placeholder={shipmentDetails?.phone_number || "+1 (555) 000-000"}
               onchange={handleValueChange}
             />
-            {error && <div className="error-message">{errorMessage.phone}</div>}
+            {error && (
+              <div className="error-message">{errorMessage.phone_number}</div>
+            )}
           </div>
           <div className="flex column gap">
             <h4>address:</h4>

@@ -8,6 +8,7 @@ import Button from "../button/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import Alert from "../alert/alert";
+import Message from "../Message/message";
 
 function ShipmentTable() {
   const userShipment = useSelector(userShipments);
@@ -20,6 +21,7 @@ function ShipmentTable() {
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
   const { deleteShipmentAPI, searchShipmentsAPI } = useAxios();
   const [displayShipment, setDisplayedShipment] = useState(userShipment);
+  const [showMessageEdit, setShowMessageEdit] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -62,8 +64,19 @@ function ShipmentTable() {
     if (searchInput.length == 0) setDisplayedShipment(userShipment);
   }, [searchInput]);
 
+  useEffect(() => {
+    setDisplayedShipment(userShipment);
+  }, [userShipment]);
+
   return (
-    <>
+    <div className="table-section">
+      {isCofirmed && (
+        <Message text={"Your shipment has been deleted"} type={"success"} />
+      )}
+
+      {showMessageEdit && (
+        <Message text={"Your shipment has been Edited"} type={"success"} />
+      )}
       <div className="search-input">
         <div className="group">
           <svg
@@ -80,7 +93,7 @@ function ShipmentTable() {
           <input
             placeholder="Search"
             type="search"
-            class="input-search-field"
+            className="input-search-field"
             onChange={(e) => {
               setSearchInput(e.target.value);
             }}
@@ -96,7 +109,7 @@ function ShipmentTable() {
           <div className="table-cell">Status</div>
           <div className="table-cell">Actions</div>
         </div>
-        {userShipment.length != 0 ? (
+        {displayShipment.length != 0 ? (
           displayShipment?.map((shipment) => {
             return (
               <div className="table-row" key={shipment.waybill}>
@@ -159,7 +172,7 @@ function ShipmentTable() {
             );
           })
         ) : (
-          <div className="empty">There no shipment data</div>
+          <div className="empty">No shipments data</div>
         )}
       </div>
       <CardForm
@@ -167,6 +180,7 @@ function ShipmentTable() {
         closeModal={closeModal}
         shipmentDetails={shipmentDetails}
         openEdit={openEdit}
+        setShowMessageEdit={setShowMessageEdit}
       />
       {openDeleteAlert && (
         <Alert
@@ -178,7 +192,7 @@ function ShipmentTable() {
           setOpenDeleteAlert={setOpenDeleteAlert}
         />
       )}
-    </>
+    </div>
   );
 }
 

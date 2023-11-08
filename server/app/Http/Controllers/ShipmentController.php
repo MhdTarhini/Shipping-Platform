@@ -12,7 +12,7 @@ class ShipmentController extends Controller
     {
         $request->validate([
             'name' => 'string|nullable',
-            'phone' => 'string|nullable',
+            'phone_number' => 'string|nullable',
             'address'=>'array|nullable',
             'address.latitude' => 'numeric|nullable',
             'address.longitude' => 'numeric|nullable',
@@ -31,7 +31,7 @@ class ShipmentController extends Controller
         }
         
         $shipment->name = $request->name;
-        $shipment->phone_number = $request->phone;
+        $shipment->phone_number = $request->phone_number;
         $shipment->address = $request->address;
         $shipment->status_id = $request->status_id;
         $shipment->user_id = $user->id;

@@ -1,3 +1,9 @@
+.table-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+}
 .shipments-table {
     display: flex;
     flex-direction: column;
@@ -57,8 +63,11 @@
 
 @media (max-width: 768px) {
     .shipments-table {
-        overflow-x: scroll;
     }
+    .table-section{
+        overflow:auto;
+    }
+
 }
 .action-section {
     width: 300px;
