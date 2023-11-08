@@ -40,6 +40,7 @@ function ShipmentTable() {
       await deleteShipmentAPI({ id: shipmentId });
       dispatch(deleteShipment(shipmentId));
       setIsConfirmed(false);
+      setOpenDeleteAlert(false);
     } catch (error) {
       console.log(error);
       setIsConfirmed(false);
@@ -67,6 +68,8 @@ function ShipmentTable() {
   useEffect(() => {
     setDisplayedShipment(userShipment);
   }, [userShipment]);
+
+  console.log(openDeleteAlert);
 
   return (
     <div className="table-section">
@@ -100,80 +103,87 @@ function ShipmentTable() {
           />
         </div>
       </div>
-      <div className="shipments-table">
-        <div className="table-row table-header">
-          <div className="table-cell">Waybill</div>
-          <div className="table-cell">Name</div>
-          <div className="table-cell">Phone</div>
-          <div className="table-cell">Address</div>
-          <div className="table-cell">Status</div>
-          <div className="table-cell">Actions</div>
-        </div>
-        {displayShipment.length != 0 ? (
-          displayShipment?.map((shipment) => {
-            return (
-              <div className="table-row" key={shipment.waybill}>
-                <div className="table-cell">{shipment.waybill}</div>
-                <div className="table-cell">{shipment.name}</div>
-                <div className="table-cell">{shipment.phone_number}</div>
-                <div className="table-cell">
-                  {shipment.address.latitude},{shipment.address.longitude}
-                </div>
-                <div className="table-cell status-cell">
-                  {status[shipment.status_id]}
-                </div>
-
-                <div className="table-cell flex gap-10 action-section">
-                  {shipment.status_id === 2 ? (
-                    <div className="table-cell icon-section">
-                      <FontAwesomeIcon
-                        icon={faCircleCheck}
-                        style={{
-                          color: "#7deb0f",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                      Completed
-                    </div>
-                  ) : shipment.status_id === 3 ? (
-                    <div className="icon-section">
-                      <FontAwesomeIcon
-                        icon={faBan}
-                        style={{
-                          color: "#ff0505",
-                          width: "20px",
-                          height: "20px",
-                        }}
-                      />
-                      Canceled
-                    </div>
-                  ) : (
-                    <div className="table-cell flex gap-10">
-                      <Button
-                        style={"green"}
-                        name={"Edit"}
-                        onClick={() => {
-                          setOpenModal(true);
-                          setOpenEdit(true);
-                          setShipmentDetails(shipment);
-                        }}></Button>
-                      <Button
-                        style={"red"}
-                        name={"Delete"}
-                        onClick={() => {
-                          setShipmentId(shipment.id);
-                          setOpenDeleteAlert(true);
-                        }}></Button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })
-        ) : (
-          <div className="empty">No shipments data</div>
-        )}
+      <div className="table" style={{overflowX:"auto"}}>
+        <table className="shipments-table">
+          <thead>
+            <tr className="table-row table-header">
+              <th className="table-cell">Waybill</th>
+              <th className="table-cell">Name</th>
+              <th className="table-cell">Phone</th>
+              <th className="table-cell">Address</th>
+              <th className="table-cell">Status</th>
+              <th className="table-cell">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayShipment.length !== 0 ? (
+              displayShipment.map((shipment) => (
+                <tr className="table-row" key={shipment.waybill}>
+                  <td className="table-cell">{shipment.waybill}</td>
+                  <td className="table-cell">{shipment.name}</td>
+                  <td className="table-cell">{shipment.phone_number}</td>
+                  <td className="table-cell">
+                    {shipment.address.latitude},{shipment.address.longitude}
+                  </td>
+                  <td className="table-cell status-cell">
+                    {status[shipment.status_id]}
+                  </td>
+                  <td className="table-cell flex gap-10 action-section">
+                    {shipment.status_id === 2 ? (
+                      <td className="table-cell icon-section">
+                        <FontAwesomeIcon
+                          icon={faCircleCheck}
+                          style={{
+                            color: "#7deb0f",
+                            width: "20px",
+                            height: "20px",
+                          }}
+                        />
+                        Completed
+                      </td>
+                    ) : shipment.status_id === 3 ? (
+                      <td className="icon-section">
+                        <FontAwesomeIcon
+                          icon={faBan}
+                          style={{
+                            color: "#ff0505",
+                            width: "20px",
+                            height: "20px",
+                          }}
+                        />
+                        Canceled
+                      </td>
+                    ) : (
+                      <td className="table-cell flex gap-10">
+                        <Button
+                          style={"green"}
+                          name={"Edit"}
+                          onClick={() => {
+                            setOpenModal(true);
+                            setOpenEdit(true);
+                            setShipmentDetails(shipment);
+                          }}></Button>
+                        <Button
+                          style={"red"}
+                          name={"Delete"}
+                          onClick={() => {
+                            setShipmentId(shipment.id);
+                            setOpenDeleteAlert(true);
+                          }}></Button>
+                      </td>
+                    )}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="empty">
+                  No shipments data
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
       <CardForm
         openModal={openModal}

@@ -139,7 +139,7 @@ function Dashboard() {
                 onClick={() => {
                   setOpenModal(true);
                 }}>
-                <img src="plus-icon.svg" alt="" srcSet="" />
+                <img src="/icons/plus-icon.svg" alt="" srcSet="" />
                 NEW
               </div>
               <div
@@ -147,11 +147,10 @@ function Dashboard() {
                 onClick={() => {
                   navigate("view");
                 }}>
-                <img src="map-icon.svg" alt="" srcSet="" />
+                <img src="/icons/map-icon.svg" alt="" srcSet="" />
                 Map
               </div>
             </div>
-
             <ShipmentTable />
           </div>
           {showMessageNew && (

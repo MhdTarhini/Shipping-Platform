@@ -22,3 +22,9 @@
     animation: colorChange 2s linear infinite;
 
 }
+@media (max-width: 1024px) {
+    .logo-animation {
+        top: 50%;
+        left: 25%;
+    }
+}

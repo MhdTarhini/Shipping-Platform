@@ -18,7 +18,10 @@ function Alert({
         as="div"
         className="relative z-10"
         initialFocus={cancelButtonRef}
-        onClose={setOpen}>
+        onClose={() => {
+          setOpen(false);
+          setOpenDeleteAlert(false);
+        }}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

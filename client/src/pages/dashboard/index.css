@@ -10,7 +10,6 @@
     flex-wrap: wrap;
     margin-left: 150px;
     width: 100%;
-        max-width: 1900px;
 }
 .page-title-dashboard {
     color: #fff;
@@ -125,6 +124,7 @@
     .page-title-dashboard {
         margin-left: 0px;
         margin-left: 25px;
+        color: #000
     }
     .dashboard-page {
         padding: 2px;
@@ -133,6 +133,16 @@
     .dashboard-items {
         margin-left: 0px;
     }
+    .top-color{
+        display: none;
+    }
+    .table{
+        width: 500px;
+}
+}
+.table{
+    width: 100%;
+    max-width: 1200px;
 }
 
 .add-shipment{
@@ -158,3 +168,4 @@
     font-weight: 400;
     line-height: normal;
 }
+
