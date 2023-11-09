@@ -24,7 +24,7 @@ function ViewMap() {
     address: "",
   });
   const [showLogo, setShowLogo] = useState(true);
-  const userShpments = useSelector(userShipments);
+  const userShipmentsCard = useSelector(userShipments);
 
   var markerIcon = new L.icon({
     iconUrl:
@@ -60,7 +60,7 @@ function ViewMap() {
                       lat={parseFloat(shipmentDetails.address.latitude)}
                       long={parseFloat(shipmentDetails.address.longitude)}
                     />
-                    {userShpments.map((shipment) => {
+                    {userShipmentsCard.data.map((shipment) => {
                       return (
                         <Marker
                           position={[

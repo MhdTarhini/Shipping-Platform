@@ -24,5 +24,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('statuses');
+        Schema::table('statuses', function($table) {
+            $table->dropColumn(['name']);
+        });
     }
 };

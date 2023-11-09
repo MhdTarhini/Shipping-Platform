@@ -1,0 +1,40 @@
+.like-dislike-container {
+    --dark-grey: #353535;
+    --middle-grey: #767676;
+    --shadow: 0 5px 15px 0 #00000026;
+    --shadow-active: 0 5px 5px 0 #00000026;
+    --border-radius-main: 10px;
+    --border-radius-icon: 50px;
+    text-align: start;
+    align-items: center;
+    gap: 20px;
+    cursor: default;
+    color: var(--dark-grey);
+    padding: 20px 30px;
+    font-weight: 600;
+    max-width: max-content;
+    border-radius: var(--border-radius-main);
+    box-shadow: var(--shadow);
+    z-index: 1;
+}
+
+.green-card {
+    background: rgb(58, 251, 58);
+    cursor: pointer;
+}
+
+.blue-card {
+    background: rgb(58, 206, 251);
+    cursor: pointer;
+}
+
+.like-dislike-container:hover {
+    box-shadow: var(--shadow-active);
+}
+
+.add-shipment {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}

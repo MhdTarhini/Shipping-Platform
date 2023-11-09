@@ -27,88 +27,13 @@
     flex-wrap: wrap;
 }
 
-.user-card {
-    background-color: gray;
-    padding: 10px;
-    gap: 20px;
-}
-
-.user-image-card {
-    width: 100px;
-    height: 100px;
-}
-
-.like-dislike-container {
-    --dark-grey: #353535;
-    --middle-grey: #767676;
-    --shadow: 0 5px 15px 0 #00000026;
-    --shadow-active: 0 5px 5px 0 #00000026;
-    --border-radius-main: 10px;
-    --border-radius-icon: 50px;
-    text-align: start;
-    align-items: center;
-    gap: 20px;
-    cursor: default;
-    color: var(--dark-grey);
-    padding: 20px 30px;
-    font-weight: 600;
-    max-width: max-content;
-    border-radius: var(--border-radius-main);
-    box-shadow: var(--shadow);
-    z-index: 1;
-}
 .dashbord-card {
     max-width: max-content;
     border-radius: 5px;
     border: 1.5px solid var(--stroke, #E8E8E8);
     background: #FFF;
 }
-.welcome-word {
-    align-self: flex-start;
-    font-size: 20px;
-}
 
-.user-card-detail {
-    align-items: center;
-    gap: 10px;
-}
-.light-card {
-    background-color: #fff;
-}
-
-.green-card {
-    background: rgb(58, 251, 58);
-    cursor: pointer;
-}
-
-.blue-card {
-    background: rgb(58, 206, 251);
-    cursor: pointer;
-}
-
-.like-dislike-container:hover {
-    box-shadow: var(--shadow-active);
-}
-
-.card-title {
-    font-size: 30px;
-    margin-left: 40px;
-}
-
-.other-details {
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 20px;
-    gap: 50px;
-}
-.icon-details {
-    font-size: 30px;
-    align-items: center;
-}
-
-.items-center {
-    align-items: center;
-}
 
 @media (max-width: 1024px) {
     .top-dashboard {
@@ -145,13 +70,6 @@
     max-width: 1200px;
 }
 
-.add-shipment{
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-}
-
 .top-color {
     background-color: #2494EA;
     width: 100%;
@@ -161,11 +79,5 @@
     top: 50px;
 }
 
-.user-info-style {
-    color: #000;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
+
 

@@ -1,0 +1,46 @@
+.like-dislike-container {
+    --dark-grey: #353535;
+    --middle-grey: #767676;
+    --shadow: 0 5px 15px 0 #00000026;
+    --shadow-active: 0 5px 5px 0 #00000026;
+    --border-radius-main: 10px;
+    --border-radius-icon: 50px;
+    text-align: start;
+    align-items: center;
+    gap: 20px;
+    cursor: default;
+    color: var(--dark-grey);
+    padding: 20px 30px;
+    font-weight: 600;
+    max-width: max-content;
+    border-radius: var(--border-radius-main);
+    box-shadow: var(--shadow);
+    z-index: 1;
+}
+
+.user-card-detail {
+    align-items: center;
+    gap: 10px;
+}
+
+.light-card {
+    background-color: #fff;
+}
+
+.welcome-word {
+    align-self: flex-start;
+    font-size: 20px;
+}
+
+.user-image-card {
+    width: 100px;
+    height: 100px;
+}
+
+.user-info-style {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

@@ -31,5 +31,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('shipments');
+        Schema::table('shipments', function($table) {
+            $table->dropColumn(['address','status_id','phone_number']);
+        });
     }
 };

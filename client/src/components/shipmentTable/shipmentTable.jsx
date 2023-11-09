@@ -19,7 +19,7 @@ function ShipmentTable() {
   const [searchInput, setSearchInput] = useState("");
   const [isCofirmed, setIsConfirmed] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
-  const [displayShipment, setDisplayedShipment] = useState(userShipment);
+  const [displayShipment, setDisplayedShipment] = useState(userShipment.data);
   const [showMessageEdit, setShowMessageEdit] = useState(false);
 
   const { deleteShipmentAPI, searchShipmentsAPI } = useAxios();
@@ -62,11 +62,11 @@ function ShipmentTable() {
   }, [isCofirmed]);
 
   useEffect(() => {
-    if (searchInput.length == 0) setDisplayedShipment(userShipment);
+    if (searchInput.length == 0) setDisplayedShipment(userShipment.data);
   }, [searchInput]);
 
   useEffect(() => {
-    setDisplayedShipment(userShipment);
+    setDisplayedShipment(userShipment.data);
   }, [userShipment]);
 
   return (

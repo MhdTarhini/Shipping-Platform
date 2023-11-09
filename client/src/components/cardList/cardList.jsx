@@ -7,7 +7,7 @@ function CardList({ setShipmentDetails }) {
   const userShipment = useSelector(userShipments);
   return (
     <div className="card-list flex column">
-      {userShipment.map((shipment) => (
+      {userShipment.data.map((shipment) => (
         <ShipmentCard
           shipment={shipment}
           key={shipment.id}
