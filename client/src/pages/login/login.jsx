@@ -121,7 +121,7 @@ function Login() {
                   )}
                 </div>
               </div>
-              <div className="forget-password">forgot password ?</div>
+              <div className="forget-password">Forgot password ?</div>
               <div
                 className="login-btn flex"
                 onClick={() => {

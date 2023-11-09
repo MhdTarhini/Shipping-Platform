@@ -12,20 +12,20 @@ export const shipmentSlice = createSlice({
       state.shipments = action.payload;
     },
     addShipment: (state, action) => {
-      state.shipments.unshift(action.payload);
+      state.shipments.data.unshift(action.payload);
     },
     editShipment: (state, action) => {
       const { id, newShipment } = action.payload;
-      const index = state.shipments.findIndex((shipment) => shipment.id === id);
+      const index = state.shipments.data.findIndex((shipment) => shipment.id === id);
       if (index !== -1) {
-        state.shipments[index] = {
-          ...state.shipments[index],
+        state.shipments.data[index] = {
+          ...state.shipments.data[index],
           ...newShipment,
         };
       }
     },
     deleteShipment: (state, action) => {
-      state.shipments = state.shipments.filter(
+      state.shipments.data = state.shipments.data.filter(
         (shipment) => shipment.id !== action.payload
       );
     },

@@ -175,7 +175,7 @@ function Register() {
                 {isLoading ? <Loading /> : "Register"}
               </div>
               <div className="go-login flex">
-                already have an account ?
+                Already have an account ?
                 <div
                   className="register-register-btn"
                   onClick={() => {
