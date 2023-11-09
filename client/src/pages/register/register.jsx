@@ -83,7 +83,7 @@ function Register() {
         <div className="register-page flex row">
           <div className="left-side-register">
             <img
-              src="register-image.png"
+              src="/assets/register-image.png"
               alt=""
               srcset=""
               className="left-side-image"
@@ -91,7 +91,7 @@ function Register() {
           </div>
           <div className="right-side-register flex column">
             <img
-              src="logo-register.png"
+              src="/assets/logo-register.png"
               alt=""
               srcset=""
               className="logo-register"

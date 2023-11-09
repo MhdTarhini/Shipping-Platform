@@ -33,8 +33,8 @@
 }
 .card-form-modal {
     position: absolute;
-    top: 50px;
-    left: 500px;
+    top: 10%;
+        left: 40%;
     padding: 30px;
     background-color: #fff;
     transition: .4s ease-in-out;
@@ -60,4 +60,12 @@
 .waybill-input {
     background-color: rgba(152, 152, 152, 0.759);
     color: "#d0d0d0"
+}
+@media (max-width: 768px) {
+    .card-form-modal {
+        top: 10%;
+        left: 3%;
+        padding: 7px;
+    }
+
 }

@@ -73,7 +73,12 @@ function Login() {
         <LoadingLogo />
       ) : (
         <div className="login-page flex row">
-          <img src="top-side.png" alt="" srcset="" className="top-login" />
+          <img
+            src="/assets/top-side.png"
+            alt=""
+            srcset=""
+            className="top-login"
+          />
           <div className="right-side-login flex column ">
             <div className="right-side-container flex column">
               <div className="welcome-title flex">
@@ -139,7 +144,7 @@ function Login() {
           </div>
           <div className="left-side-login">
             <img
-              src="login-image.png"
+              src="/assets/login-image.png"
               alt=""
               srcset=""
               className="left-side-image"

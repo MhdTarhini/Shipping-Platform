@@ -2,8 +2,6 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 1200px;
-    overflow-x: auto
 }
 .shipments-table {
     display: flex;
@@ -39,10 +37,10 @@
 
 .table-cell {
     flex: 1;
-            padding: 10px 10px;
-                overflow: hidden;
-                text-align: center;
-            max-width: 200px;
+    padding: 10px 10px;
+    overflow: hidden;
+    text-align: center;
+    max-width: 200px;
 }
 
 .btn-form {
@@ -66,8 +64,6 @@
 }
 
 @media (max-width: 768px) {
-    .shipments-table {
-    }
     .table-section{
         overflow:auto;
     }
@@ -114,6 +110,9 @@
     transition: .3s ease;
 }
 
+.table {
+    overflow-x: auto;
+}
 .input-search-field::placeholder {
     color: #9e9ea7;
 }
@@ -136,7 +135,6 @@
 }
 @media (max-width: 768px) {
     .shipments-table {
-        /* Adjust styles for smaller screens */
         overflow: auto;
     }
 
@@ -146,12 +144,10 @@
 
     .table-cell {
         padding: 0 5px;
-        /* Adjust cell padding for smaller screens */
     }
 
     .table-header {
         font-size: 14px;
-        /* Reduce font size for header on smaller screens */
     }
 
 

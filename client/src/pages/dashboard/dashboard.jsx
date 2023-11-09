@@ -60,6 +60,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard-page flex column">
+      {/* show loading logo screen */}
       {showLogo ? (
         <LoadingLogo />
       ) : (
@@ -70,9 +71,10 @@ function Dashboard() {
             <div className="top-dashboard flex">
               <div className="like-dislike-container light-card flex column gap-10 text-align-center">
                 <div className="welcome-word">Welcome !</div>
+                {/* User Info Card */}
                 <div className="flex user-card-detail">
                   <img
-                    src="user-default.png"
+                    src="/assets/user-default.png"
                     alt=""
                     srcSet=""
                     className="user-image-card"
@@ -97,6 +99,7 @@ function Dashboard() {
                   </div>
                 </div>
               </div>
+              {/* Shipments Info Card */}
               <div className="like-dislike-container text-align-start light-card">
                 <div className="card-title">
                   {shipmentsDetails.shipmentsNumber} Total Shipments
@@ -134,6 +137,7 @@ function Dashboard() {
                   </div>
                 </div>
               </div>
+              {/* add Shipment button */}
               <div
                 className="add-shipment like-dislike-container green-card"
                 onClick={() => {
@@ -142,6 +146,7 @@ function Dashboard() {
                 <img src="/icons/plus-icon.svg" alt="" srcSet="" />
                 NEW
               </div>
+              {/* navigate to view map componenet */}
               <div
                 className="add-shipment like-dislike-container blue-card"
                 onClick={() => {
@@ -151,11 +156,13 @@ function Dashboard() {
                 Map
               </div>
             </div>
+            {/* Shipments table */}
             <ShipmentTable />
           </div>
           {showMessageNew && (
             <Message text={"New Shipment has been created"} type={"success"} />
           )}
+          {/* Add new shipment form*/}
           <CardForm
             openModal={openModal}
             closeModal={closeModal}

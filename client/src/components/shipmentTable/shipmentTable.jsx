@@ -19,17 +19,17 @@ function ShipmentTable() {
   const [searchInput, setSearchInput] = useState("");
   const [isCofirmed, setIsConfirmed] = useState(false);
   const [openDeleteAlert, setOpenDeleteAlert] = useState(false);
-  const { deleteShipmentAPI, searchShipmentsAPI } = useAxios();
   const [displayShipment, setDisplayedShipment] = useState(userShipment);
   const [showMessageEdit, setShowMessageEdit] = useState(false);
 
+  const { deleteShipmentAPI, searchShipmentsAPI } = useAxios();
   const dispatch = useDispatch();
 
   const closeModal = () => {
     setOpenModal(false);
   };
 
-  const status = {
+  const STATUS = {
     1: "In Process",
     2: "Completed",
     3: "Canceled",
@@ -69,8 +69,6 @@ function ShipmentTable() {
     setDisplayedShipment(userShipment);
   }, [userShipment]);
 
-  console.log(openDeleteAlert);
-
   return (
     <div className="table-section">
       {isCofirmed && (
@@ -103,7 +101,7 @@ function ShipmentTable() {
           />
         </div>
       </div>
-      <div className="table" style={{overflowX:"auto"}}>
+      <div className="table">
         <table className="shipments-table">
           <thead>
             <tr className="table-row table-header">
@@ -126,7 +124,7 @@ function ShipmentTable() {
                     {shipment.address.latitude},{shipment.address.longitude}
                   </td>
                   <td className="table-cell status-cell">
-                    {status[shipment.status_id]}
+                    {STATUS[shipment.status_id]}
                   </td>
                   <td className="table-cell flex gap-10 action-section">
                     {shipment.status_id === 2 ? (
